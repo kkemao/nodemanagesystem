@@ -217,9 +217,6 @@ a {
     padding: 18px 0 18px 30px;
     background: #16D4DB;
 }
-.container-aside-nav-item .active {
-    background: rgba(22, 212, 219, 1);
-}
 
 .container-aside-nav-item span {
     margin-left: 10px;
@@ -517,12 +514,12 @@ a {
     ;
 }
 
-.uploadImage {
+.uploadImage{
     height: 360px;
 }
 
 .uploadImage-content-box,
-.uploadVideo-content-box {
+.uploadVideo-content-box ,.upload-userImg-box{
     display: flex;
     border: 1px dotted #cccccc;
     flex-direction: column;
@@ -541,18 +538,24 @@ a {
     font-size: 12px;
 }
 
-.uploadVideo-content-box strong {
+.uploadVideo-content-box strong,.upload-userImg-box strong{
     color: #4994FF;
     cursor: pointer;
 }
 
-.uploadImage-content-box {
+.uploadImage-content-box{
     width: 330px;
     height: 230px;
 }
+.upload-userImg-box{
+    width: 200px;
+    height: 200px;
+}
 
 .uploadImage-content-box>span,
-.uploadVideo-content-box>span {
+.uploadVideo-content-box>span,
+.upload-userImg-box>span.upLoadImgIcon
+{
     width: 32px;
     height: 32px;
     display: inline-block;
@@ -605,7 +608,7 @@ a {
     top:25px;
     left:450px;
 }
-.deleteFile{  
+.uploadImage-content .deleteFile{  
     top:25px;
     left: 358px;
 
@@ -673,7 +676,7 @@ a {
     color: white;
     
 }
-.newTag.bgGray{
+.newTag.bgGray,.userDelete.bgGray{
     background: #c3bdbd;
     cursor: default;
 }
@@ -690,6 +693,7 @@ a {
     border: 1px solid rgba(3, 7, 17, 0.08);
     background: url(../img/search.png) no-repeat 200px center;
 }
+
 .tag-management-top,.user-management-top{
   background: white;
   padding: 17px 50px;
@@ -716,7 +720,7 @@ a {
     position: absolute;
     z-index: 100;
 }
-.tagCata::after{
+/* .placeholderELe::after{
     content: '';
     position: absolute;
     top:14px;
@@ -725,15 +729,18 @@ a {
     height: 14px;
     background: white url(../img/down.png) no-repeat center center;
 
-}
+} */
 .tagCata li{
     display: none;
      width: 172px;
      height: 40px;
    
 }
-
-.tagCata li:not(.placeholderELe):not(.activeTag):hover{
+.tagCata li:nth-child(2){
+    border-top: 1px solid rgba(3, 7, 17, 0.08)
+}
+.tagCata li:not(.placeholderELe):not(.activeTag):hover,
+.limit li:not(.limitPlaceHolder):not(.activeTag):hover{
     background: #f2f2f2;
 }
 /* .tagCata li:not(.activeTag):hover{
@@ -746,13 +753,13 @@ a {
 .tagCata .placeholderELe::after{
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background:  rgba(3, 7, 17, 0.08);   
+    top:14px;
+    left:150px;
+    width: 14px;
+    height: 14px;
+    background: white url(../img/down.png) no-repeat center center;
 }
-.tagCata .activeTag{
+.tagCata .activeTag,.limit .activeTag{
      background:  rgba(35, 107, 228, 1);
      color: white;
 
@@ -847,8 +854,9 @@ a {
 /* 添加用户管理 */
 .userManage-nav{
     position: relative;
+    /* height: 60px; */
 }
-.userManage-nav::after{
+/* .userManage-nav::after{
     content: '';
     width: 0;
     height: 0;
@@ -859,4 +867,130 @@ a {
     border-style: solid;
     border-color: #958686 transparent transparent transparent;
 
+} */
+/* 添加账号弹出层 */
+#userPop{
+    background: white;
+    width: 600px;
+    height: 320px;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    position: relative;
+}
+#userPop input{
+    text-indent: 15px;
+    width: 230px;
+    height: 40px;
+    border: 1px solid rgba(3, 7, 17, 0.08);
+   
+}
+#userPop .passShow{
+    display: block;
+}
+#userPop .passHide{
+    display: none;
+}
+#userPop form>div{
+    margin-bottom: 20px;
+}
+#userPop .limit{
+    display: inline-block;
+    line-height: 42px;
+    text-indent: 10px;
+    top: -3px;
+    left: 51px;
+    background: white;
+    border: 1px solid rgba(3, 7, 17, 0.08);
+    cursor: pointer;
+    position: absolute;
+    z-index: 100;
+}
+#userPop .limit li{
+    display: none;
+    width: 230px;
+    height: 40px;
+    border: 1px solid rgba(3, 7, 17, 0.08);
+
+}
+#userPop .limit .limitPlaceHolder{
+    display: block;
+}
+#userPop .limit::after{
+    content: '';
+    position: absolute;
+    top:14px;
+    left:205px;
+    width: 14px;
+    height: 14px;
+    background: white url(../img/down.png) no-repeat center center;
+
+}
+
+#userPop form>div:nth-last-child(2){
+    height: 40px;
+    /* overflow: hidden; */
+    position: relative;
+}
+#userPop div:nth-last-child(2) label{
+    margin-left:-26px;
+}
+#uploadUserImg{
+position: absolute;
+/* float: right; */
+top: 18px;
+left: 358px;
+}
+.upload-userImg-box{
+    position: relative;
+}
+.upload-userImg-box img{
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   top:0;
+   left:0;
+}
+#userPop label{
+    margin-right: 20px;
+}
+
+
+.colorRed{
+    color: red;
+    position: absolute;
+    left: 0px;
+    bottom: -23px;
+
+}
+#userPop  form div:nth-last-child(2) .star{
+     position: absolute;
+     left: 288px;
+}
+#uploadUserImg .imgShow{
+    display: block;
+}
+#uploadUserImg .imgHide{
+    display: none;
+}
+.imgBox{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.imgBox img{
+    width: 100%;
+    height: 100%;
+}
+.imgBox .deleteFile{
+    right: -8px;
+    top: -9px;
+    position: absolute;
+}
+.userManage-menu li{
+    padding: 15px 36px 0 36px;
+}
+.userManage-menu li.activeMenu{
+    color: #1e9fff;
 }

@@ -31,7 +31,7 @@ $(function () {
         initForm(tagState);
         initSubTags(tagId);
     })
-    $('.tag-management-top').on('click', '.tagCata li', function (e) {
+    $('.tagCata').on('click', 'li', function (e) {
         // tagObj.tagId=null;
         let $target = $(e.target);
         if ($target.hasClass('placeholderELe')) {
@@ -102,7 +102,6 @@ $(function () {
     // 新建标签绑定事件新建标签绑定事件
     // $('.newTag').on('click', function (e) {
     //     let layerNewTagOpt = null;
-
     //     if (tagState == 'firstLabel') {
     //         // let tagId=$(e.target).closest('tr').find('td').eq(0).data('type');
     //         // tagObj.tagId=null;
@@ -112,7 +111,7 @@ $(function () {
     //             content: `<div class="inputTagWrap">标签名称：<input class="inputTag" type="text" value="" placeholder="请输入一级标签名称"></div>`,
     //             callBack: handleNewTag
     //         }
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     //     } else if (tagState == 'secondaryLabel') {
     //         // let tagId=$(e.target).closest('tr').find('td').eq(0).data('type');
     //         // console.log('filterTip',tagId);
@@ -271,11 +270,9 @@ $(function () {
                         if (key == 0) {
                             $placeHolder = `<li class="placeholderELe" data-type="">请选择</li>`
                             $allType = `<li class="activeTag" data-type=''>请选择</li>`
-                            $li = `<li data-type=${item.id}>${item.product_name}</li>`;
 
-                        } else {
-                            $li = `<li data-type=${item.id}>${item.product_name}</li>`;
                         }
+                        $li = `<li data-type=${item.id}>${item.product_name}</li>`;
                         $tagCata.append($placeHolder);
                         $tagCata.append($allType);
                         $tagCata.append($li);

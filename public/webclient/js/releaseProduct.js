@@ -81,7 +81,7 @@ $(
         $(".uploadBtn").click(function () {
             
             if(inputLock){
-                tips('文件正在上传中，请稍后','main',1200,'bottom','')
+                $IF.tips('文件正在上传中，请稍后','main',1200,'bottom','')
                 return;
             }
             $('#uploadVideoInp').click();
@@ -98,6 +98,7 @@ $(
             var fileExten=fileNameArr[fileNameArr.length - 1];
             // var fileExten=files[0].name.slice(files[0].name.indexOf('.')+1);
             let fileFormatObj = checkFileFormat(fileExten);
+
             if (fileFormatObj.checkFormatFlag) {
                 if (fileFormatObj.type == "img") {
                     uploadFile(files, 'img', 'top')
@@ -157,7 +158,7 @@ $(
                         type: "delete",
                         url: $IF.apiServer + '/product/info/' + productId,
                         beforeSend: function(xhr){
-                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
+                      xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                         success: function (res) {
                             if (res && res.data&&res.errCode==0) {
@@ -271,7 +272,7 @@ $(
                 layer.open({
                     btnAlign: 'c'
                     , title: '提示'
-                    , content: '请先上传视频以后再发布产品'
+                    , content: '请先上传视频或者图片以后再发布产品'
                     , yes: function () {
                         layer.closeAll();
                     }
@@ -644,7 +645,9 @@ $(
         //     }
         // }
         function uploadFile(files, type, pos) {
-            const file = files[0];type
+           
+            const file = files[0];type;
+            console.log(file);
             var formData = new FormData();
             formData.append("file", file);
             formData.append("fileType", type);
@@ -719,8 +722,8 @@ $(
             } else {
                 if (type == "img") {
                     //上传封面
-                    var $img = $('<img />');
                     var $imgBox = $('.uploadImage-content');
+                    var $img = $('<img />');
                     $img[0].src = $IF.apiServer + url;
                     fileUrl.imgUrl = url;
                     $imgBox.append($img);

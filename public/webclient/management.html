@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Pragma" content="no-cache">
+    <!-- <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Expires" content="0"> -->
     <title>产品观察室</title>
     <link rel="stylesheet" type="text/css" href="./js/layui/css/layui.css" />
     <link rel="stylesheet" type="text/css" href="./css/management.css" />
@@ -44,17 +44,17 @@
                         <img src="./img/product.png" alt="标签管理">
                         <span>标签管理</span>
                     </li>
-                    <!-- <li class="container-aside-nav-item" data-type="userManagement">
+                    <li class="container-aside-nav-item" data-type="userManagement">
                         <img src="./img/product.png" alt="用户管理">
                         <span>用户管理</span>
                         <div class="userManage-nav">
-                            <ul style="display: none"> 
+                            <ul class="userManage-menu"style="display:none"> 
                                 <li class="">账号管理</li>
                                 <li class="">账号管理</li>
                                 <li class="">账号管理</li>
                             </ul>
                         </div>
-                    </li> -->
+                    </li>
                 </ul>
             </aside>
             <section class="container-content">
@@ -186,7 +186,7 @@
             <div class="uploadImage-content-box">
                 <span></span>
                 <p>上传封面</p>
-            </div> --> -->
+            </div> --> 
             <!-- <form accept-charset="UTF-8" enctype="multipart/form-data" id="uploadImgForm" name="fileinfo" style="display: none;">
                                             <input type="file" id="uploadImgInp" name="imageFile" accept="image/*" />
                                         </form> -->
@@ -302,6 +302,7 @@
     <script src="./js/jquery.js "></script>
     <script src="./js/layui/layui.js "></script>
     <script src="./js/layui/layui.all.js "></script>
+    <script src="./js/jquery.md5.js "></script>
     <script src="./js/config.js "></script>
     <script src="./js/global.js "></script>
     <!-- <script src="./js/switchContent.js "></script> -->
@@ -313,13 +314,21 @@
             let content = $('.container-content');
             loadContent(dataType);
             $('.container-aside-nav-item').click(function () {
-                $(this).addClass('active').siblings().removeClass('active');
+               
                 let dataType = $(this).data('type');
                 if (dataType == 'tagManagement') {
                     $('.tagNav').show();
                 } else {
                     $('.tagNav').hide();
                 }
+                // if(dataType == 'userManagement'){
+                //     $(this).find('.userManage-menu').slideDown();
+                //     $(this).find('.userManage-menu li').eq(0).addClass('activeMenu').siblings().removeClass('activeMenu');
+                // }else{
+                // $('.container-aside-nav-item').find('.userManage-menu').hide();
+                // }
+                $(this).addClass('active').siblings().removeClass('active');
+                console.log(dataType);
                 content.html('');
                 loadContent(dataType)
 
@@ -346,17 +355,17 @@
                 switch (dataType) {
                     case "productManagement":
                         setTimeout(function () {
-                            content.load('pages/productManagement.html');
+                            content.load('pages/productManagement.html?'+new Date().getTime());
                         }, 0)
                         break;
                     case "tagManagement":
                         setTimeout(function () {
-                            content.load('pages/tagManagement.html');
+                            content.load('pages/tagManagement.html?'+new Date().getTime());
                         }, 0)
                         break;
                     case "userManagement":
                         setTimeout(function () {
-                            content.load('pages/userManagement.html');
+                            content.load('pages/userManagement.html?'+new Date().getTime());
                         }, 0)
                         break;
                     default:
