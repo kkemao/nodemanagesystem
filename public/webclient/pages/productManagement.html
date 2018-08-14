@@ -1,0 +1,146 @@
+<body>
+        <div class="contentWrap-item" data-type="productManagement">
+                <div class="container-content-wrap">
+                    <div class="container-content-top">
+                        <div class="search">
+                            <input type="text" placeholder="搜索产品名称" id="product-name">
+                            <i class="searchBtn"></i>
+                        </div>
+                        <form action="#" class="layui-form">
+                            <div class="layui-form-item layui-unselect layui-form-select all-product">
+                                <div class="layui-input-block">
+                                    <select name="allproduct" lay-filter="allProduct">
+                                        <option value="" selected="">请选择</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="release-product">发布产品</div>
+                    </div>
+                    <div class="content-card-wrap">
+                        <ul class="container-content-list"> </ul>
+                    </div>
+            
+                </div>
+                <div class="container-content-wrap release-product-content" style='overflow: auto;'>
+                    <div class="release-product-title">
+                        <h2 id='productName'>发布产品</h2>
+                        <div class="back">返回</div>
+                    </div>
+                    <div class="release-product-item uploadVideo">
+                        <h2 class="title">上传视频</h2>
+                        <div class="uploadVideo-content">
+                            <div class="uploadVideo-content-box">
+                                <span></span>
+                                <p>将文件拖到此处，或
+                                    <strong class="uploadBtn">点击上传</strong>
+                                    <input id="uploadVideoInp" type="file" name="videoFile" accept="video/mp4,video/mov,video/avi,image/*" style="display: none;">
+                                </p>
+                            </div>
+                            <p>支持MP4、AVI、mov等格式，且不超过1GB，支持jpg、bmp、jpeg、png图片格式。</p>
+                            <!-- <video src="http://www.iqiyi.com/d07d0588-1e79-4143-8431-62f193b110d8" controls></video> -->
+                        </div>
+                    </div>
+                    <div class="release-product-item productDetail">
+                        <h2 class="title">产品信息</h2>
+                        <div class="productDetail-content">
+                            <form id="productDetail" name="productDetail" class="layui-form" enctype="multipart/form-data">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">产品名称：</label>
+                                    <div class="layui-input-inline necessary">
+                                        <input type="text" name="productName" required lay-verify="required" placeholder="产品名称" autocomplete="off" class="layui-input product-name">
+                                    </div>
+                                    <span class="star">*</span>
+                                </div>
+                                <div class="layui-form-item layui-unselect layui-form-select ">
+                                    <label class="layui-form-label">产品分类：</label>
+                                    <div class="layui-input-inline necessary">
+                                        <select name="selectCata" lay-filter="fenlei">
+                                            <option value="" selected="">请选择</option>
+                                            <!-- <option value="0">1</option>
+                                                    <option value="1">2</option>
+                                                    <option value="2">3</option>
+                                                    <option value="3">4</option>
+                                                    <option value="4">5</option> -->
+                                        </select>
+                                    </div>
+                                    <span class="star">*</span>
+                                </div>
+            
+                                <div class="layui-form-item layui-unselect layui-form-select tipLinkAge">
+                                    <label class="layui-form-label">筛选标签：</label>
+                                    <div class="layui-input-inline necessary">
+                                        <select name="filterTip" lay-filter="saixuan">
+                                            <option value="" selected="">请选择</option>
+                                            <!-- <option value="0">5</option>
+                                                    <option value="1">6</option>
+                                                    <option value="2">7</option>
+                                                    <option value="3">8</option>
+                                                    <option value="4">9</option> -->
+                                        </select>
+                                    </div>
+                                    <div class="layui-input-inline necessary">
+                                        <select name="subTip" lay-filter="subsaixuan">
+                                            <option value="">请选择</option>
+                                            <!-- <option value="0">5</option>
+                                                    <option value="1">6</option>
+                                                    <option value="2">7</option>
+                                                    <option value="3">8</option>
+                                                    <option value="4">9</option> -->
+                                        </select>
+                                    </div>
+                                    <span class="star">*</span>
+                                </div>
+            
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">产品介绍：</label>
+                                    <textarea name="productIntroduce" required lay-verify="required" placeholder="产品介绍" class="layui-textarea product-introduce"></textarea>
+                                </div>
+            
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">产品链接：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="productLink" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入产品体验链接"
+                                            class="product-link">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">上线时间：</label>
+                                    <div class="layui-input-inline necessary">
+                                        <input type="text" class="layui-input" placeholder="请选择" id="date" name="createTime">
+                                    </div>
+                                    <span class="star">*</span>
+                                </div>
+            
+                                <div class="layui-form-item developer">
+                                    <label class="layui-form-label">开发/设计人员：</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="designer" required lay-verify="required" placeholder="多个人员请用标点隔开" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="release-product-item uploadImage">
+                        <h2 class="title">上传封面</h2>
+                        <div class="uploadImage-content">
+                            <div class="uploadImage-content-box">
+                                <span></span>
+                                <p>上传封面</p>
+                            </div>
+                            <!-- <form accept-charset="UTF-8" enctype="multipart/form-data" id="uploadImgForm" name="fileinfo" style="display: none;">
+                                        <input type="file" id="uploadImgInp" name="imageFile" accept="image/*" />
+                                    </form> -->
+                            <input type="file" id="uploadImgInp" name="imageFile" accept="image/*" style="display: none;">
+                            <!-- <img src="http://pic5.iqiyipic.com/image/20180731/e9/5d/v_117779482_m_601_160_90.jpg" alt=""> -->
+                        </div>
+            
+                    </div>
+                    <button class="layui-btn layui-btn-normal releaseBtn">发布</button>
+                </div>
+                <div class="container-content-bottom" style="display: none;">暂无数据</div>
+            </div>
+    
+</body>
+
+<script src="js/releaseProduct.js"></script>

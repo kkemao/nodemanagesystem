@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>产品观察室</title>
+    <link rel="stylesheet" type="text/css" href="./js/layui/css/layui.css" />
+    <link rel="stylesheet" type="text/css" href="./css/css.css" />
+    <link rel="stylesheet" type="text/css" href="./modal.css" />
+</head>
+<body>
+  <div class="main" id='main'>
+      <header class="main-header">
+          <div class="logo">云天励飞产品发布平台</div>
+           <div class="main-header-form">
+            <input id='queryString' type="test" placeholder="搜索产品、标签">
+            <span class="emptySearch"></span>
+           </div>
+           <div class="user">
+               <div class="management">
+                   <a href="management.html" target="blank">高级管理</a>
+               </div>
+            <div class="userInfo">
+                <a href="javascript:;">
+                    <img src="./img/Avatar.png" alt="">
+                    <span class="username">user</span>
+                </a>
+                <div class="logOut" style="display: none;">
+                        <ul>
+                            <li><a href="javascript:;">退出登陆</a></li>
+                            <!-- <li><a href="" target="blank">退出登陆</a></li> -->
+                        </ul>
+                    </div>
+            </div>
+        </div>
+      </header>
+      <section class="container">
+        <nav class="nav">
+            <ul class="nav-tab">
+            </ul>
+        </nav>
+       <div class='main-container'>
+            <aside class="container-aside">
+                <!-- <h3 class="container-aside-header">最新产品</h3> -->
+                <!--
+                <dl class="activeTip">
+                    <dt><i class="dl-active"></i>深目基础版本</dt>
+                    <dd>2.0属性</dd>
+                    <dd>2.0数据挖掘</dd>
+                    <dd>2.0检索应用</dd>
+                    <dd>1.0</dd>
+                </dl>
+                <dl>
+                        <dt><i></i>自研究产品</dt>
+                        <dd>视频框报警</dd>
+                        <dd>人体结构化演示</dd>
+                        <dd>视频质量检测工具</dd>
+                        <dd>电动车检测</dd>
+                    </dl>
+                    <dl>
+                            <dt><i></i>垂直行业应用</dt>
+                            <dd>流窜人员挖掘</dd>
+                            <dd>前科人员挖掘</dd>
+                            <dd>团伙告警挖掘</dd>
+                            <dd>人脸数量态势图</dd>
+                            <dd>出入境人员管理</dd>
+                        </dl>
+                        -->
+            </aside>
+        
+        
+            <section class="container-content">
+                <ul>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content01.png"  v-url="./movie.ogg" alt="图片"/>
+                            <i ></i>
+                        </div>
+                        <h3>智慧旅检</h3>
+                        <p class="container-content-item-gray"><i></i>出入境人员管理</p>
+                        <p class="container-content-item-p">尹义，刘璐</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content03.png"  v-url="./movie.ogg" alt="图片"/>
+                            <i class="new-tip"></i>
+                        </div>
+                        <h3>深目v2.1上线</h3>
+                        <p class="container-content-item-gray"><i></i>基础版本</p>
+                        <p class="container-content-item-p">尹义，刘璐</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content04.png"  v-url="./movie.ogg"  alt="图片"/>
+                            <i ></i>
+                        </div>
+                        <h3>深目v1.5.3 更新</h3>
+                        <p class="container-content-item-gray"><i></i>基础版本</p>
+                        <p class="container-content-item-p">尹义，刘璐</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content05.png"  v-url="./movie.ogg"  alt="图片"/>
+                            <i ></i>
+                        </div>
+                        <h3>闯红灯v2.0 重大更新</h3>
+                        <p class="container-content-item-gray"><i></i>闯红灯</p>
+                        <p class="container-content-item-p">陈耀沃</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content06.png"  v-url="./movie.ogg"  alt="图片"/>
+                            <i ></i>
+                        </div>
+                        <h3>深目v2.0上线</h3>
+                        <p class="container-content-item-gray"><i></i>基础版本</p>
+                        <p class="container-content-item-p">尹义，刘璐</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content07.png"  v-url="./movie.ogg"  alt="图片"/>
+                            <i ></i>
+                        </div>
+                        <h3>新加坡TM-华为</h3>
+                        <p class="container-content-item-gray"><i></i>定制化应用</p>
+                        <p class="container-content-item-p">刘璐</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content08.png"  v-url="./movie.ogg"  alt="图片"/>
+                            <i ></i>
+                        </div>
+                        <h3>智慧旅检</h3>
+                        <p class="container-content-item-gray"><i></i>出入境人员管理</p>
+                        <p class="container-content-item-p">尹义，刘璐</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    <li class='container-content-item'>
+                        <div class="container-content-item-imgcontainer">
+                            <img src="./img/container-content01.png"  v-url="./movie.ogg"  alt="图片"/>
+                            <i ></i>
+                        </div>
+                        <h3>反恐项目迭代</h3>
+                        <p class="container-content-item-gray"><i></i>反恐项目迭代</p>
+                        <p class="container-content-item-p">易兴</p>
+                        <div class="container-content-item-view">
+                            <span class="view">16</span>
+                            <span class="msgIcon">16</span>
+                        </div>
+                    </li>
+                    
+                </ul>
+                <div class="container-content-tip">暂无数据</div>
+            </section>
+            <div class="container-content-bottom">暂无数据</div>
+            <div class="clearfix"></div>
+        </section>
+        <footer class='footer'>©2018 产品管理部</footer>
+       </div>
+  </div>
+  <div class="modal-shade"></div>
+    <div class="project-modal">
+      <!-- 遮罩层 -->
+      <i class="closebtn"></i>
+      <div class="project-modal-title">
+        <span class="project-name">深目v2.1上线</span>
+        <div class="project-time">发布时间:<span class="project-publish-time">2018年03月19日</span></div>
+      </div>
+      <video src="" controls="controls">
+        您的浏览器不支持 video 标签。
+      </video>
+      <div class="project-modal-info">
+      <div class="project-introduce">
+        <h4>简介：</h4>
+        <p class="project-this-update">【本次更新】</p>
+        <p class="project-this-update-content"></p>
+        <!-- <ul class="project-update-content">
+          <li>编辑Word时，支持实时字数统计。</li>
+          <li>编辑Word时，支持实时字数统计。</li>
+          <li>编辑Word时，支持实时字数统计。</li>
+          <li>编辑Word时，支持实时字数统计。</li>
+        </ul>  -->
+        <p class="project-more-improve">【场景应用】</p>
+        <p class="project-more-improve-content">多个前科人员在一周内任意30分钟内到达同一场所则告警。分别为涉黄2人在30分钟内到达同一场所则告警，涉毒2人，涉赌3人。 默认相似度93%（可调)</p>
+        <!-- <ol class="project-improve-content">
+          <li>文件列表和文件夹管理体验优化，文档管理更方便；</li>
+          <li>支持更多格式导出：设置页面大小、图片兼容、格式对齐等；</li>
+        </ol>  -->
+      </div>
+      <div class="project-notice">
+        <h4>注意事项：</h4>
+        <p class="project-notice-content">非常抱歉给您的使用带来不便，由于网络波动导致导入导出等部分功能使用异常
+        </p>
+      </div>
+      <div class="project-developer">
+        <h4>开发人员：</h4>
+        <ul class="project-developer-content">
+          <li>尹义、刘璐</li>
+        </ul>
+      </div>
+      <div class="project-comment">
+        <h4>评论(16)</h4>
+        <textarea name="" id="project-comment-input"></textarea>
+        <div class="submit-comment">
+          <button>
+          <!-- <img src="./img/but_bg.png" alt="提交评论"> -->
+          评论
+          </button>
+        </div>
+        <div class="project-comment-content">
+          <ul>
+            <li>
+            <span class="comment-creater">edison卓州</span>
+            <span class="comment-time">2天前</span>
+            <p class="comment-content">
+            非常赞的功能！！！如果能实现的士仸 i 我答复家饿哦过就更棒了
+            </p>
+            </li>
+            <li>
+            <span class="comment-creater">simon胜强</span>
+            <span class="comment-time">1天前</span>
+            <p class="comment-content">
+            非常赞的功能！！！
+            </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      </div>
+  </div>
+  <script src="./js/jquery.js"></script>
+  <script src="./js/layui/layui.js "></script>
+  <script src="./js/layui/layui.all.js "></script>
+  <script src="./js/config.js "></script>
+  <script src="./js/global.js "></script>
+  <script src="./js/mockData.js"></script>
+  <script>
+      $(function(){
+        $('.logOut').on('click',function(){
+            layer.open({
+                btnAlign: 'c'
+                , title: '提示'
+                , content: '确定退出登陆？'
+                , yes: function () {
+                    layer.closeAll();
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('userinfo');
+                    window.location.href = window.location.href.slice(0,window.location.href.lastIndexOf('/'));
+                    // $IF['userInfo']=res.userinfo[0]
+                }
+            });
+          
+
+
+        })
+        $('.user .userInfo').on('mouseover',function(){
+            let $logOut=$('.logOut');
+            $logOut.show();
+           //  $('.user .userInfo').on('mouseout',function(){
+           //   $logOut.hide();
+           //  })
+            $(this).on('mouseout',function(){
+              $logOut.on('mouseover',function(){
+              $logOut.show();
+              $logOut.on('mouseout',function(){
+              $logOut.hide();
+              $logOut.off('mouseover');
+              $logOut.off('mouseout');
+              $(this).off('mouseout');
+         })
+             
+            });
+            $logOut.hide();
+     })
+ 
+ 
+        })
+        
+      })
+  </script>
+
+</body>
+</html>

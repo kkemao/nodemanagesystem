@@ -1,0 +1,81 @@
+<body>
+    <div class="contentWrap-item" data-type="userManagement">
+        <div class="user-management-Wrap">
+            <div class="user-management-top">
+                <input type="text" value="" id="userSearch" placeholder="搜索标签">
+                <button class="btn" id="addUser">添加账户</button>
+            </div>
+            <div class="user-management-table">
+                <table class="firstLevelTable">
+                    <thead>
+                        <th>姓名</th>
+                        <th>账户</th>
+                        <th>职位</th>
+                        <th>账号权限</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>11111</td>
+                            <td>333333</td>
+                            <td>44444</td>
+                            <td>5555555</td>
+                            <td>
+                                <span class="userEdit">编辑</span>
+                                <span class="userDelete">删除</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+             <div>
+
+             </div>
+        </div>
+        <div class="user-management-bottom" style="display: none;">暂无数据</div>
+    </div>
+</body>
+<script src="js/userManagement.js"></script>
+<script>
+    $('.addUser').on('click', function () {
+        let addUserCon="";
+        layer.open({
+            btn: ['确定', '取消']
+            , btnAlign: 'c'
+            , title: '添加张号'
+            , content: '确定删除？'
+            , yes: function () {
+                $.ajax({
+                    type: "post",
+                    url: $IF.apiServer + '/product/info/update',
+                    processData: false,
+                    contentType: "application/json",
+                    data: JSON.stringify(formObj),
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
+                    },
+                    success: function (res) {
+                        if (res && res.data && res.errCode == 0) {
+                            console.log(res.data);
+                            layer.open({
+                                btnAlign: 'c'
+                                , title: '提示'
+                                , content: '更新成功'
+                                , yes: function () {
+                                    // $('.release-product-content').hide().siblings().show();
+                                    layer.closeAll();
+                                    location.reload();
+
+                                }
+                            });
+                        } else {
+                            $IF.errCodefn(res);
+                        }
+
+                    }
+                })
+            }
+        })
+    })
+</script>
