@@ -30,7 +30,7 @@ $(
         initProductName();
         initProductCard();
         projectModal();
-       
+
         // $('.container-aside-nav-item').click(function () {
         //     $(this).addClass('active').siblings().removeClass('active');
         //     let dataType=$(this).data('type');
@@ -43,7 +43,7 @@ $(
         //             $('.tagNav').show();
         //             // $('.newTag').addClass('')
         //             $('.tagBack').trigger('click',"all");
-                    
+
 
         //         }else{
         //             $('.tagNav').hide();
@@ -59,9 +59,8 @@ $(
             $IF.currentState = 'release';
             //点发布产品时清空数据
             fileUrl = {};
-            var state = "release";
-            emptyData(state);
-
+            // var state = "release";
+            emptyData();
         });
         //搜索产品
         $("#product-name").keydown(function (E) {
@@ -79,9 +78,9 @@ $(
         //拖拽，点击上传
         var inputLock = false;
         $(".uploadBtn").click(function () {
-            
-            if(inputLock){
-                $IF.tips('文件正在上传中，请稍后','main',1200,'bottom','')
+
+            if (inputLock) {
+                $IF.tips('文件正在上传中，请稍后', 'main', 1200, 'bottom', '')
                 return;
             }
             $('#uploadVideoInp').click();
@@ -95,7 +94,7 @@ $(
             inputLock = true;
             const files = this.files;
             var fileNameArr = files[0].name.split('.');
-            var fileExten=fileNameArr[fileNameArr.length - 1];
+            var fileExten = fileNameArr[fileNameArr.length - 1];
             // var fileExten=files[0].name.slice(files[0].name.indexOf('.')+1);
             let fileFormatObj = checkFileFormat(fileExten);
 
@@ -122,9 +121,9 @@ $(
             // var $uploadImgForm=$('#uploadImgForm');
             // var formData=new FormData($uploadImgForm[0]);
             const files = this.files;
-            
+
             var fileNameArr = files[0].name.split('.');
-            var fileExten=fileNameArr[fileNameArr.length - 1];
+            var fileExten = fileNameArr[fileNameArr.length - 1];
             // var fileExten=files[0].name.slice(files[0].name.indexOf('.')+1);
             let fileFormatObj = checkFileFormat(fileExten);
             if (fileFormatObj.type == "img") {
@@ -140,7 +139,7 @@ $(
                 });
 
             };
-        
+
         })
         $('body').on('click', '.delete', function (e) {
             e.stopPropagation();
@@ -157,11 +156,11 @@ $(
                     $.ajax({
                         type: "delete",
                         url: $IF.apiServer + '/product/info/' + productId,
-                        beforeSend: function(xhr){
-                      xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                },
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
+                        },
                         success: function (res) {
-                            if (res && res.data&&res.errCode==0) {
+                            if (res && res.data && res.errCode == 0) {
                                 layer.open({
                                     btnAlign: 'c'
                                     , title: '提示'
@@ -171,7 +170,7 @@ $(
                                         parentDom.remove();
                                     }
                                 });
-                            }else{
+                            } else {
                                 $IF.errCodefn(res);
                             }
                         }
@@ -186,11 +185,11 @@ $(
             upDateModaldata(dataID, $IF.productData);
             $(".project-modal").show()
             $(".modal-shade").show();
-        }).on('click', '.edit', function (e) {
+        }).off('click', '.edit').on('click', '.edit', function (e) {
             e.stopPropagation();
             $('.release-product-content').show().siblings().hide();
             // var state = "edit";
-            // emptyData(state);
+            emptyData();
             $('#productName').html('编辑产品');
             $IF.currentState = 'update';
             var parentDom = $(this).closest('.container-content-item');
@@ -202,23 +201,25 @@ $(
             selectDom.find("option[value = '" + $IF.producttype[$IF.productData[productId].type].id + "']").attr("selected", "selected");
             $productDetail.find("select[name='filterTip']").siblings().find('input').val('2');
             $productDetail.find('textarea').val($IF.productData[productId].description);
-            $productDetail.find("input[name='productName']").val($IF.productData[productId].name);
+            if (productId) {
+                $productDetail.find("input[name='productName']").val($IF.productData[productId].name);
+            }
             $productDetail.find("input[name='productLink']").val($IF.productData[productId].url);
             $productDetail.find("input[name='designer']").val($IF.productData[productId].developer);
             $productDetail.find("#date").val(new Date($IF.productData[productId].online_time).format('yyyy-MM-dd hh:mm:ss'));
             // var topfileExten=$IF.productData[productId].scene.slice($IF.productData[productId].scene.indexOf('.')+1);
-            
-            var fileNameArr = $IF.productData[productId].scene.split('.');
-            var fileExten=fileNameArr[fileNameArr.length - 1];
 
-            var fileFormatObj=checkFileFormat(fileExten);
-            if(fileFormatObj){
-                if(fileFormatObj.type=='img'){
-                    setFile('img', $IF.productData[productId].scene,'top')
-                }else if(fileFormatObj.type=='video'){
-                    setFile('video', $IF.productData[productId].scene,'top');
+            var fileNameArr = $IF.productData[productId].scene.split('.');
+            var fileExten = fileNameArr[fileNameArr.length - 1];
+
+            var fileFormatObj = checkFileFormat(fileExten);
+            if (fileFormatObj) {
+                if (fileFormatObj.type == 'img') {
+                    setFile('img', $IF.productData[productId].scene, 'top')
+                } else if (fileFormatObj.type == 'video') {
+                    setFile('video', $IF.productData[productId].scene, 'top');
                 }
-               
+
             }
             setFile('img', $IF.productData[productId].image)
             getProductTag($IF.productData[productId].type, $IF.productData[productId].tag1, $IF.productData[productId].tag2);
@@ -241,11 +242,11 @@ $(
                 contentType: "application/json",
                 data: JSON.stringify(formObj),
                 dataType: 'json',
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: function (res) {
-                    if (res && res.data&&res.errCode==0) {
+                    if (res && res.data && res.errCode == 0) {
                         console.log(res.data);
                         layer.open({
                             btnAlign: 'c'
@@ -258,7 +259,7 @@ $(
 
                             }
                         });
-                    }else{
+                    } else {
                         $IF.errCodefn(res);
                     }
 
@@ -321,11 +322,11 @@ $(
             $.ajax({
                 type: "get",
                 url: $IF.apiServer + "/producttype",
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: function (res) {
-                    if (res && res.data&&res.errCode==0) {
+                    if (res && res.data && res.errCode == 0) {
                         let allProducts = res.data;
                         console.log(allProducts);
                         layui.use(['form'], function (data) {
@@ -339,6 +340,12 @@ $(
                                 $allproduct.append(optionstring);
                                 $productCata.append(optionstring);
                             });
+                            // form.on('select(selectCata)',function(data){
+                            //     $(data.elem).find('option').removeAttr('selected');
+                            //     $(data.elem).siblings().find('input').val($IF.producttype[productId].product_name);
+                            //     $(data.elem).find("option[value = '" + $IF.producttype[productId].id + "']").attr("selected", "selected");
+                            //     form.render('select');
+                            //    })
                             form.on('select(allProduct)', function (data) {
                                 initProductCard(data.value);
 
@@ -351,7 +358,7 @@ $(
                             form.render('select');
 
                         });
-                    }else{
+                    } else {
                         $IF.errCodefn(res)
                     }
                 }
@@ -377,12 +384,12 @@ $(
                     type: productId,
                     queryString: $('#product-name').val() || ''
                 }),
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: function (res) {
-                    if (res && res.data&&res.errCode==0) {
-                       
+                    if (res && res.data && res.errCode == 0) {
+
                         $('.container-content-bottom').hide();
                         let productCards = res.data;
                         $IF.productData = {};
@@ -394,7 +401,7 @@ $(
                             $('.container-content-bottom').show();
                         }
                     }
-                   else{
+                    else {
                         $IF.errCodefn(res)
                     }
                 }
@@ -405,12 +412,12 @@ $(
             $('.container-content-list').html('');
             let stringDom = '';
             console.log('productCards', productCards);
-            productCards.forEach(function(item, i){
+            productCards.forEach(function (item, i) {
                 stringDom += `
                     <li class='container-content-item' data-productId="${item.id}">
                         <div class="container-content-item-imgcontainer">
                             <img src="${$IF.apiServer + item.image}"  v-url="${$IF.apiServer + item.scene
-                                }" v-index="${item.ID}" alt="${item.alt}"/>
+                    }" v-index="${item.ID}" alt="${item.alt}"/>
                             <div>
                             <i class="${item.newIconShow == 1 ? 'new-tip' : ''}"></i>
                             <h3>${item.name}</h3>
@@ -432,30 +439,42 @@ $(
         }
         //页面初始化
         function getProductTag(productId, tag1, tag2) {
-
+            console.log("productId", productId)
             $.ajax({
                 type: "get",
                 url: $IF.apiServer + "/tag/" + productId,
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: function (res) {
-                    if (res && res.data&&res.errCode==0) {
+                    if (res && res.data && res.errCode == 0) {
                         var tags = res.data;
                         layui.use(['form'], function () {
                             var laydate = layui.laydate;
                             var form = layui.form;
                             var $filterTip = $('#productDetail').find("select[name='filterTip']");
+                            let $selectDom = $('#productDetail').find("select[name='selectCata']");
                             var $subTip = $('#productDetail').find("select[name='subTip']");
-                            $subTip.html('<option value=""  selected="">请选择</option>');
                             $filterTip.html('<option value=""  selected="">请选择</option>');
+                            $subTip.html('<option value=""  selected="">请选择</option>');
+                            if (productId) {
+                                $selectDom.html('<option value=""  selected="">请选择</option>');
+                                for (let productType in $IF.producttype) {
+                                    var optionstring = `<option value=${$IF.producttype[productType].id}>${$IF.producttype[productType].product_name}</option>`;
+                                    $selectDom.append(optionstring);
+                                    if ($IF.producttype[productType].id == productId) {
+                                        $selectDom.find("option[value = '" + $IF.producttype[productType].id + "']").attr("selected", "selected");
+                                    }
+                                }
+                            }
                             tags.forEach(function (tag, key) {
                                 let subTags = tag.children;
                                 var optionstring = `<option value=${tag.id}>${tag.name}</option>`;
                                 $filterTip.append(optionstring);
+
                                 if (tag1) {
                                     if (tag1 == tag.id) {
-                                        $filterTip.find('input').val(tag.name);
+                                        // $filterTip.find('input').val(tag.name);
                                         $filterTip.find("option[value = '" + tag.id + "']").attr("selected", "selected");
 
                                         if (tag2) {
@@ -463,7 +482,7 @@ $(
                                                 var optionstring = `<option value=${subTag.id}>${subTag.name}</option>`;
                                                 $subTip.append(optionstring);
                                                 if (tag2 == subTag.id) {
-                                                    $subTip.find('input').val(subTag.name);
+                                                    // $subTip.find('input').val(subTag.name);
                                                     $subTip.find("option[value = '" + subTag.id + "']").attr("selected", "selected");
                                                 }
                                             })
@@ -471,9 +490,11 @@ $(
                                     }
                                 }
                             });
+
                             form.on('select(saixuan)', function (data) {
                                 $subTip.html('<option value=""  selected="">请选择</option>');
                                 var selectOption = data.value;
+
                                 tags.forEach(function (tag, keys) {
                                     if (Number(selectOption) == tag.id) {
                                         var subTags = tag.children;
@@ -489,7 +510,7 @@ $(
                             form.render('select');
 
                         });
-                    }else{
+                    } else {
                         $IF.errCodefn(res)
                     }
 
@@ -513,28 +534,28 @@ $(
                 //检查视频格式
                 console.log(files[0]);
                 var fileNameArr = files[0].name.split('.');
-                var fileExten=fileNameArr[fileNameArr.length - 1];
+                var fileExten = fileNameArr[fileNameArr.length - 1];
 
                 // var fileExten=files[0].name.slice(files[0].name.indexOf('.')+1);
                 let fileFormatObj = checkFileFormat(fileExten);
-                if(fileFormatObj){
-                         if($ele[0].className=='uploadVideo-content-box'){
-                             if(fileFormatObj.type=='img'){
-                                uploadFile(files, 'img','top');
-                             }else{
-                                uploadFile(files,'video','top');
-                             }
-                }else if($ele[0].className=='uploadImage-content-box'){
-                    uploadFile(files,'img');
-                }
-                }else{
+                if (fileFormatObj) {
+                    if ($ele[0].className == 'uploadVideo-content-box') {
+                        if (fileFormatObj.type == 'img') {
+                            uploadFile(files, 'img', 'top');
+                        } else {
+                            uploadFile(files, 'video', 'top');
+                        }
+                    } else if ($ele[0].className == 'uploadImage-content-box') {
+                        uploadFile(files, 'img');
+                    }
+                } else {
                     layer.open({
                         btnAlign: 'c'
                         , title: '提示'
                         , content: '文件格式不支持'
                     });
                 }
-              
+
                 // if (checkFileFormat(files[0])) {
                 //     uploadFile(files, 'video');
                 // } else if (/image/g.test(files[0].type)) {
@@ -553,46 +574,46 @@ $(
         }
         //视屏格式检查
         function checkFileFormat(fileExten) {
-        //     if (/image/g.test(file.type)) {
-        //         fileObj.type = 'img';
-        //         fileObj.checkFormatFlag = true;
+            //     if (/image/g.test(file.type)) {
+            //         fileObj.type = 'img';
+            //         fileObj.checkFormatFlag = true;
 
-        //     }
-        //     if (/video/g.test(file.type) && fileType.indexOf(file.type) !== -1) {
-        //         fileObj.type = 'video';
-        //         fileObj.checkFormatFlag = true;
-        //     }
-        //     return fileObj;
-        // }
-        console.log(fileExten);
-        const fileType={
-            'img':['png','gif','jpeg','bmp','jpg'],
-            'video':['mp4', 'avi', 'mov']
-        }
-        let fileObj=null;
-        for(var type in fileType){
-            if(fileType[type].indexOf(fileExten)!==-1){
-                fileObj = {};
-                fileObj.type = type;
-                fileObj.checkFormatFlag = true;
-               
+            //     }
+            //     if (/video/g.test(file.type) && fileType.indexOf(file.type) !== -1) {
+            //         fileObj.type = 'video';
+            //         fileObj.checkFormatFlag = true;
+            //     }
+            //     return fileObj;
+            // }
+            console.log(fileExten);
+            const fileType = {
+                'img': ['png', 'gif', 'jpeg', 'bmp', 'jpg'],
+                'video': ['mp4', 'avi', 'mov']
             }
-        }
-        return fileObj;
-        // const fileType = ['mp4', 'avi', 'mov','png','gif','jpeg','bmp'];
-        // if(fileType.indexOf(fileExten)!==-1){
-        //     let fileObj = {};
-        //       if(/image/g.test(file.type)){
-        //         fileObj.type = 'img';
-        //       }else if(/video/g.test(file.type)){
-        //         fileObj.type = 'video';
-        //       }
-            
-        //     fileObj.checkFormatFlag = true;
-        //     return fileObj;
-        // }
+            let fileObj = null;
+            for (var type in fileType) {
+                if (fileType[type].indexOf(fileExten) !== -1) {
+                    fileObj = {};
+                    fileObj.type = type;
+                    fileObj.checkFormatFlag = true;
 
-    }
+                }
+            }
+            return fileObj;
+            // const fileType = ['mp4', 'avi', 'mov','png','gif','jpeg','bmp'];
+            // if(fileType.indexOf(fileExten)!==-1){
+            //     let fileObj = {};
+            //       if(/image/g.test(file.type)){
+            //         fileObj.type = 'img';
+            //       }else if(/video/g.test(file.type)){
+            //         fileObj.type = 'video';
+            //       }
+
+            //     fileObj.checkFormatFlag = true;
+            //     return fileObj;
+            // }
+
+        }
         // function uploadFile(files,type) {
         //     const file = files[0];
         //     if (/video/g.test(file.type)) {
@@ -645,8 +666,8 @@ $(
         //     }
         // }
         function uploadFile(files, type, pos) {
-           
-            const file = files[0];type;
+
+            const file = files[0]; type;
             console.log(file);
             var formData = new FormData();
             formData.append("file", file);
@@ -657,20 +678,20 @@ $(
                 data: formData,
                 processData: false,
                 contentType: false,
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: function (res) {
                     inputLock = false;
-                    if (res && res.data&&res.errCode==0) {
+                    if (res && res.data && res.errCode == 0) {
                         console.log()
                         setData(type, res.data, pos);
-                    }else{
+                    } else {
                         $IF.errCodefn(res)
                     }
 
                 },
-                error: function(err){
+                error: function (err) {
                     inputLock = false;
                 }
             });
@@ -681,7 +702,7 @@ $(
                 , title: '提示'
                 , content: '上传成功'
                 , yes: function () {
-            
+
                     layer.closeAll();
                     setFile(type, url, pos);
                 }
@@ -691,13 +712,13 @@ $(
         function setFile(type, url, pos) {
             if (pos == "top") {
                 var $fileDom = null;
-                var $deleteFileBtn=null;
+                var $deleteFileBtn = null;
                 if (type == 'video') {
                     $fileDom = $('<video controls></video>');
                     var $videoBox = $('.uploadVideo-content');
                     $fileDom[0].src = $IF.apiServer + url;
                     $videoBox.append($fileDom);
-                     $deleteFileBtn = $('<span  class="topDeleteFile"></span>');
+                    $deleteFileBtn = $('<span  class="topDeleteFile"></span>');
 
 
                 } else {
@@ -705,7 +726,7 @@ $(
                     var $videoBox = $('.uploadVideo-content');
                     $fileDom[0].src = $IF.apiServer + url;
                     $videoBox.append($fileDom);
-                     $deleteFileBtn = $('<span  class="topDeleteFile"></span>');
+                    $deleteFileBtn = $('<span  class="topDeleteFile"></span>');
                 }
                 fileUrl.videoUrl = url;
                 vedioUploadFlag = true;
@@ -730,8 +751,8 @@ $(
                     var $deleteFileBtn = $('<span  class="deleteFile"></span>')
                     $imgBox.append($deleteFileBtn);
                     $deleteFileBtn.click(function () {
-                         $('#uploadImgInp').val('');
-                         imgUploadFlag = false;
+                        $('#uploadImgInp').val('');
+                        imgUploadFlag = false;
                         $img.remove();
                         $(this).remove();
                     });
@@ -762,11 +783,11 @@ $(
                 data: JSON.stringify(formObj),
                 // contentType:"multipart/form-data",
                 dataType: 'json',
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: function (res) {
-                    if (res && res.data&&res.errCode==0) {
+                    if (res && res.data && res.errCode == 0) {
                         console.log(res.data);
                         layer.open({
                             btnAlign: 'c'
@@ -777,37 +798,42 @@ $(
                                 location.reload();
                             }
                         });
-                    }else{
-                       $IF.errCodefn(res) 
+                    } else {
+                        $IF.errCodefn(res)
                     }
 
                 }
             });
 
         }
-        function emptyData(state) {
-            if (state == "edit") {
-                $('.uploadVideo-content video').remove();
-                $('.uploadImage-content img').remove();
-                $('.uploadVideo-content').not($('.uploadVideo-content video'));
-                var $video = $('<video controls></video>');
-                var $videoBox = $('.uploadVideo-content-box');
-                // $videoBox.html('');
-                // $('.uploadVideo-content').append($('<video controls></video>'));
-                $('.uploadImage-content').not($('.uploadImage-content img'));
-                var $imgBox = $('.uploadImage-content-box');
-                // $imgBox.html('');
-                // $('.uploadImage-content').append($('<img />'));
-                //清空表单数据
-                $(':input', '#productDetail').val('').removeAttr('checked');
+        function emptyData() {
+            let $videoCon = $('.uploadVideo-content');
+            let $imgCon = $('.uploadImage-content');
+            if ($videoCon.find('img').length >= 0) {
+                $videoCon.find('img').remove();
             }
-            else if (state == "release") {
-                $('.uploadVideo-content video').remove();
-                $('.uploadImage-content img').remove();
-                $('.uploadVideo-content .deleteFile').remove();
-                $('.uploadImage-content .deleteFile').remove();
-                $(':input', '#productDetail').val('').removeAttr('checked').removeAttr('checked');
+            if ($videoCon.find('video').length >= 0) {
+                $videoCon.find('video').remove();
             }
+            if ($imgCon.find('img').length >= 0) {
+                $imgCon.find('img').remove();
+            }
+            $videoCon.find('.topDeleteFile').remove();
+            $imgCon.find('.deleteFile').remove();
+            $(":input", "#productDetail")
+                .val("")
+                .removeAttr("checked")
+                .removeAttr("selected");
+            //清空一级以及二级标签
+            layui.use(['form'], function () {
+                var form = layui.form;
+                var $filterTip = $('#productDetail').find("select[name='filterTip']");
+                var $subTip = $('#productDetail').find("select[name='subTip']");
+                $filterTip.html('<option value=""  selected="">请选择</option>');
+                $subTip.html('<option value=""  selected="">请选择</option>');
+                form.render('select');
+            })
+
         }
         function projectModal() {
             $(document).click(function (e) {
@@ -817,7 +843,7 @@ $(
                 }
             });
             $('.project-modal').on("click", ".closebtn", function () {
-                console.log("dddddddddd")
+
                 $(".modal-shade").css("display", "none");
                 $(".project-modal").css("display", "none");
             })
@@ -840,20 +866,29 @@ $(
 
             // console.log(item.src)
             domString = `
-                <i class="closebtn"></i>
+            <div class="project-modal-box">
+              
                 <div class="project-modal-title">
                 <span class="project-name">${item.name}</span>
-                
+                <i class="closebtn"></i>
               </div>
+              <div class="project-modal-content">
+              <div>
               <video class="${item.scene_type == 'img' ? 'hide' : 'show'}" src="${$IF.apiServer + item.scene}" controls="controls">
                 您的浏览器不支持 video 标签。
               </video>
-              <img width="100%" class="${item.scene_type == 'img' ? 'show' : 'hide'}" src="${$IF.apiServer + item.scene}" alt="图片"/>
+              <img class="${item.scene_type == 'img' ? 'show' : 'hide'}" src="${$IF.apiServer + item.scene}" alt="图片"/>
+              </div>
               <div class="project-modal-info">
               <div class="project-notice">
                 <h4>功能介绍：</h4>
                 ${item.description}
               </div>
+              <div class="project-link">
+              <h4>产品链接：</h4>
+              <a href="${item.url ? item.url : 'javascript:;'}" target="blank" class="project-notice-content ${item.url ? 'linkBlue' : ''}">${item.url ? item.url : '暂无'}
+              </a>
+             </div>
               <div class="project-notice">
                 <h4>上线时间：</h4>
                 <p class="project-notice-content">${new Date(item.online_time).format('yyyy-MM-dd hh:mm:ss')}
@@ -881,72 +916,74 @@ $(
                     </li>
                   </ul>
                 </div>
+                </div>
+                </div>
              
                 `;
 
             $(".project-modal").html(domString);
         }
-        function initUserInfo(){
+        function initUserInfo() {
             $IF.getUserInfo();
             $('.user .username').html($IF.userInfo && $IF.userInfo.user_name);
         }
 
-        function tips(flag,parentClassName,time,poi,jump){
-            if(document.getElementsByClassName('animateTips001').length != 0){
-              document.getElementsByClassName(parentClassName)[0].removeChild(document.getElementsByClassName('animateTips001')[0]);
+        function tips(flag, parentClassName, time, poi, jump) {
+            if (document.getElementsByClassName('animateTips001').length != 0) {
+                document.getElementsByClassName(parentClassName)[0].removeChild(document.getElementsByClassName('animateTips001')[0]);
             }
-            var poi = poi||'center';
-            var jump = jump||'';
+            var poi = poi || 'center';
+            var jump = jump || '';
             var div_uuid = getUuid();
-            var div_id = "success-"+div_uuid;
+            var div_id = "success-" + div_uuid;
             var div = document.createElement("div");
-                div.id = div_id;
-                div.className = 'animateTips001';
-                div.style.position = "absolute";
-                if(poi == 'bottom'){
-                  div.style.bottom = "20px";
-                }else{
-                  div.style.top = "45%";
-                }
-                div.style.left = "0px";
-                div.style.width = "100%";
-                div.style.textAlign = "center";
-                div.style.zIndex = "99999";
-                div.style.borderRadius = "3px";
+            div.id = div_id;
+            div.className = 'animateTips001';
+            div.style.position = "absolute";
+            if (poi == 'bottom') {
+                div.style.bottom = "20px";
+            } else {
+                div.style.top = "45%";
+            }
+            div.style.left = "0px";
+            div.style.width = "100%";
+            div.style.textAlign = "center";
+            div.style.zIndex = "99999";
+            div.style.borderRadius = "3px";
             var h5 = document.createElement("h5");
-                h5.style.padding = "15px 30px";
-                h5.style.color = "#fff";
-                h5.style.borderRadius = "3px";
-                h5.style.textAlign = "center";
-                h5.style.fontSize = "1em";
-                h5.style.display = "inline-block";
-                h5.style.background = "rgba(0,0,0,0.8)";
-                h5.style.boxShadow = "1px 1px 15px";
-                h5.innerHTML = flag;
+            h5.style.padding = "15px 30px";
+            h5.style.color = "#fff";
+            h5.style.borderRadius = "3px";
+            h5.style.textAlign = "center";
+            h5.style.fontSize = "1em";
+            h5.style.display = "inline-block";
+            h5.style.background = "rgba(0,0,0,0.8)";
+            h5.style.boxShadow = "1px 1px 15px";
+            h5.innerHTML = flag;
             div.appendChild(h5);
             document.getElementsByClassName(parentClassName)[0].appendChild(div);
             h5.className = jump;//"tipJump";
-            setTimeout(function(){
-              // document.getElementsByClassName(parentClassName)[0].removeChild(document.getElementById(div_id));
-              // $('#'+div_id).remove();
-              if(document.getElementById(div_id) == null)return;
-              document.getElementById(div_id).remove();
-            },time);
+            setTimeout(function () {
+                // document.getElementsByClassName(parentClassName)[0].removeChild(document.getElementById(div_id));
+                // $('#'+div_id).remove();
+                if (document.getElementById(div_id) == null) return;
+                document.getElementById(div_id).remove();
+            }, time);
             return false;
-          }
-          
-          function getUuid() {
+        }
+
+        function getUuid() {
             var s = [];
             var hexDigits = "0123456789abcdef";
             for (var i = 0; i < 36; i++) {
-              s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
             }
             s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
             s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
             s[8] = s[13] = s[18] = s[23] = "-";
-          
+
             var uuid = s.join("");
             return uuid;
-          }
+        }
     }
 );

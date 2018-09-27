@@ -2,8 +2,7 @@
 body,
 html {
     height: 100%;
-    user-select: none;
-}
+    }
 
 body,
 div,
@@ -236,9 +235,10 @@ a{
     font-family: 'MicrosoftYaHei';
     font-size: 18px;
     width: 274px;
+    padding: 0 30px;
     height: calc(100% - 138px);
     height: 100%;
-    margin-left: 60px;
+    /* margin-left: 60px; */
     overflow: auto;
     border-right: 1px solid #e2e2e2;
 }
@@ -287,12 +287,13 @@ a{
     color: #236BE4;;
 }
 .container-content{
+    flex: 1;
     overflow: auto;
     box-sizing: border-box;
-    width: calc( 100% - 334px );
+    /* width: calc( 100% - 334px ); */
     height: 100%;
     position: relative;
-    padding: 30px 0px 0px 50px;
+    padding: 30px 0px 0px 60px;
 }
 /* .container-content{
     margin-top: 62px;
@@ -327,9 +328,10 @@ a{
     left: 0px;
 }
 .container-content>ul{
-   overflow: auto;
-    
-  
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-around; */
 }
 
 
@@ -338,11 +340,11 @@ a{
     border-radius: 5px;
     box-shadow: 0 0 5px #ddd;
     box-sizing: border-box;
-    float:left;
-    margin-bottom:42px;
-    margin-right:50px;
+    float: left;
+    margin-bottom: 42px;
     overflow: hidden;
-    width:330px; 
+    margin-right: 30px;
+    width: 330px;
 }
 .container-content-item-imgcontainer{
     position: relative;
@@ -460,4 +462,13 @@ a{
 .emptySearch:hover{
  transform:rotateZ(180deg);
  cursor: pointer;
+}
+@media (max-width: 1366px) {
+    .container-content{
+        padding:   30px 0px 0px 30px;
+    }
+    .container-content-item{
+        margin-right:15px; 
+    }
+    
 }

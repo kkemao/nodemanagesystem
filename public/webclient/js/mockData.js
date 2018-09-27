@@ -275,19 +275,28 @@ $(function() {
 
         // console.log(item.src)
         domString = `
-                <i class="closebtn"></i>
+        <div class="project-modal-box">
+               
                 <div class="project-modal-title">
                 <span class="project-name">${item.name}</span>
-                
+                <i class="closebtn"></i>
               </div>
+              <div class="project-modal-content">
+              <div>
               <video class="${item.scene_type == 'img' ? 'hide' : 'show'}" src="${$IF.apiServer + item.scene}" controls="controls">
                 您的浏览器不支持 video 标签。
               </video>
-              <img width="100%" class="${item.scene_type == 'img' ? 'show' : 'hide'}" src="${$IF.apiServer + item.scene}" alt="图片"/>
+              <img class="${item.scene_type == 'img' ? 'show' : 'hide'}" src="${$IF.apiServer + item.scene}" alt="图片"/>
+              </div>
               <div class="project-modal-info">
               <div class="project-notice">
                 <h4>功能介绍：</h4>
                 ${item.description}
+              </div>
+              <div class="project-link">
+                <h4>产品链接：</h4>
+                <a href="${item.url?item.url:'javascript:;'}" target="blank" class="project-notice-content ${item.url?'linkBlue':''}">${item.url?item.url:'暂无'}
+                </a>
               </div>
               <div class="project-notice">
                 <h4>上线时间：</h4>
@@ -316,7 +325,8 @@ $(function() {
                     </li>
                   </ul>
                 </div>
-             
+                </div>
+            </div>
                 `;
 
         $(".project-modal").html(domString);

@@ -40,6 +40,10 @@
     initForm(tagState);
     initProductCata(tagObj.productCata);
     // initProductTag("");
+    //添加点击body下拉框隐藏
+    $('body').off('click').on('click',function(){
+        $('.tagCata li:not(.placeholderELe)').hide();
+    })
     $('.tag-management-table').on('click', '.firstLevelTable .tagName', function (e) {
         let tagName = $(e.target).text();
         //在所有产品都加载的情况下，点击一级标签，跳转到二级时可以新增标签
@@ -58,6 +62,7 @@
     })
     $('.tagCata').on('click', 'li', function (e) {
         // tagObj.tagId=null;
+        e.stopPropagation();
         let $target = $(e.target);
         if ($target.hasClass('placeholderELe')) {
             $target.siblings().slideToggle('fast');
@@ -98,7 +103,6 @@
             let tagId = $(e.target).closest('tr').find('td').eq(0).data('type');
             tagObj.tagId = tagId;
             tagObj.subTagId = null;
-            console.log(tagObj);
             layerEditOpt = {
                 // tagId:tagObj.tagId,
                 btn: ['保存', '取消'],

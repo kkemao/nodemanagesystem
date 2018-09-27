@@ -31,9 +31,10 @@ var router = express.Router();
         var id = req.params.id;
         var data = req.body;
         console.log(data);
-        if(data && data.username && data.account && data.roleId){
+        if(data && data.username && data.account && data.password && data.roleId){
             var sql = `update t_user_info t set
                         t.login = '${data.account}',
+                        t.password = '${data.password}',
                         t.user_name = '${data.username}', 
                         t.create_time = '${new Date().format('yyyy-MM-dd hh:mm:ss')}', 
                         t.role_id = '${data.roleId}', 

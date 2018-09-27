@@ -14,18 +14,10 @@ $(function () {
     $IF.errCodefn = function (res) {
         //未登陆用户访问
         if (res.errCode == 1002) {
-            layer.open({
-                btnAlign: 'c'
-                , title: '提示'
-                , content: res.data
-                , closeBtn: 0
-                , yes: function () {
-                    layer.closeAll();
-                    localStorage.setItem('token', '');
-                    // $IF['userInfo']=res.userinfo[0];
-                    window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));
-                }
-            });
+            console.log(1111);
+            localStorage.setItem('token', '');
+            // $IF['userInfo']=res.userinfo[0];
+            window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));
         } else if (res.errCode == 1001) {
             layer.open({
                 btnAlign: 'c'
@@ -39,16 +31,16 @@ $(function () {
     }
     // $IF.layerPop=function(){
     // }
-    $IF.setData = function (ele, url) {
+    // $IF.setData = function (ele, url) {
 
-        ele.find('img')[0].src = $IF.apiServer + url;
-       let $deleteFileBtn=ele.find(".deleteFile");
-        $deleteFileBtn.click(function () {
-              ele.removeClass('imgShow').addClass('imgHide');
-              ele.find('.colorRed').remove();
-            
-        });
-    }
+    //     ele.find('img')[0].src = $IF.apiServer + url;
+    //    let $deleteFileBtn=ele.find(".deleteFile");
+    //     $deleteFileBtn.click(function () {
+    //           ele.removeClass('imgShow').addClass('imgHide');
+    //           ele.find('.colorRed').remove();
+
+    //     });
+    // }
     $IF.tips = function (flag, parentClassName, time, poi, jump) {
         if (document.getElementsByClassName('animateTips001').length != 0) {
             document.getElementsByClassName(parentClassName)[0].removeChild(document.getElementsByClassName('animateTips001')[0]);
@@ -61,6 +53,7 @@ $(function () {
         div.id = div_id;
         div.className = 'animateTips001';
         div.style.position = "absolute";
+        div.style.zIndex = "999";
         if (poi == 'bottom') {
             div.style.bottom = "20px";
         } else {
@@ -105,25 +98,20 @@ $(function () {
         var uuid = s.join("");
         return uuid;
     }
-    $IF.getAccountInfo= new ResetInterface($IF.apiServer + "/user/"),
-    $IF.editUserInfo = new ResetInterface($IF.apiServer + "/user/edit/"),
-    $IF.deleteUserInfo = new ResetInterface($IF.apiServer + "/user/delete/");
-
-
-
-
+    $IF.getAccountInfo = new ResetInterface($IF.apiServer + "/user/"),
+        $IF.deleteUserInfo = new ResetInterface($IF.apiServer + "/user/delete/");
     function ResetInterface(url) {
         this.get = function (dataStr, callBack, error) {
             $.ajax({
                 type: "get",
-                url: url+dataStr,
+                url: url + dataStr,
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: callBack
             })
         }
-        this.post =function(data,callBack,error){
+        this.post = function (data, callBack, error) {
             $.ajax({
                 type: "post",
                 url: url,
@@ -131,24 +119,24 @@ $(function () {
                 contentType: false,
                 data: JSON.stringify(data),
                 dataType: 'json',
-                beforeSend: function(xhr){
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
-                success:callBack
+                success: callBack
             })
         }
-        this.delete=function(datastr,callBack,err){
+        this.delete = function (datastr, callBack, err) {
             $.ajax({
                 type: "delete",
-                url: url+datastr,
-                beforeSend: function(xhr){
+                url: url + datastr,
+                beforeSend: function (xhr) {
                     xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
                 },
                 success: callBack
             });
 
         }
-          return this;
+        return this;
     }
 
 
