@@ -463,6 +463,58 @@ a{
  transform:rotateZ(180deg);
  cursor: pointer;
 }
+/* 修改密码 */
+#userPop{
+    background: white;
+    width: 600px;
+    height: 320px;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    position: relative;
+}
+#userPop input{
+    text-indent: 15px;
+    width: 230px;
+    height: 40px;
+    border: 1px solid rgba(3, 7, 17, 0.08);
+   
+
+}
+.formWrap label{
+    width: 17%;
+}
+.formItem label {
+    width: 16%;
+    display: inline-block;
+    text-align: right;
+}
+.formItem{
+    margin-bottom: 20px;
+}
+.formWrap form{
+    width:80%;
+}
+.formWrap{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.star{
+    display: inline-block;
+    margin-top: 10px;
+    color: red;
+    
+}
+.formWrap .formTip{
+    position: absolute;
+    bottom: 10px;
+    left: 35%;
+    color: red;
+}
+.bgGray{
+    background: #c3bdbd;
+    cursor: default;
+}
 @media (max-width: 1366px) {
     .container-content{
         padding:   30px 0px 0px 30px;

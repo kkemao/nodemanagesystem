@@ -23,38 +23,48 @@
                 <span class="secondaryLevel"> / </span>
             </div>
             <div class="user">
-                <div>
-                    <a href="javascript:;">
+                    <div class="userInfo">
+                            <a href="javascript:;">
+                                <img src="./img/Avatar.png" alt="">
+                                <span class="username">user</span>
+                            </a>
+                            <div class="logOut" style="display: none;">
+                                <ul>
+                                    <li id="logOut"><a href="javascript:;">退出登陆</a></li>
+                                    <li id="changePass"><a href="javascript:;">修改密码</a></li>
+                                    <!-- <li><a href="" target="blank">退出登陆</a></li> -->
+                                </ul>
+                            </div>
+                        </div>
+                <!-- <div> -->
+                    <!-- <a href="javascript:;">
                         <img src="./img/Avatar.png" alt="">
                         <span class="username">user</span>
-                    </a>
-                    <a class="logOut" href="javascript:;">退出</a>
-                </div>
-
+                    </a> -->
+                    <!-- <a class="logOut" href="javascript:;">退出</a>
+                </div> -->
+               
             </div>
         </header>
         <section class="container">
             <aside class="container-aside">
                 <ul class="container-aside-nav">
-                    <li class="container-aside-nav-item active" data-type="productManagement">
+                    <!-- <li class="container-aside-nav-item active" data-type="productManagement">
                         <img src="./img/product.png" alt="产品管理">
                         <span>产品管理</span>
                     </li>
                     <li class="container-aside-nav-item" data-type="tagManagement">
-                        <img src="./img/product.png" alt="标签管理">
+                        <img src="./img/tagMana.png" alt="标签管理">
                         <span>标签管理</span>
                     </li>
                     <li class="container-aside-nav-item" data-type="userManagement">
-                        <img src="./img/product.png" alt="用户管理">
+                        <img src="./img/tagMana.png" alt="用户管理">
                         <span>用户管理</span>
-                        <div class="userManage-nav">
-                            <ul class="userManage-menu"style="display:none"> 
-                                <li class="">账号管理</li>
-                                <li class="">账号管理</li>
-                                <li class="">账号管理</li>
-                            </ul>
-                        </div>
                     </li>
+                    <li class="container-aside-nav-item" data-type="userSetting">   
+                        <img src="./img/tagMana.png" alt="个人设置">
+                        <span>个人设置</span>
+                    </li> -->
                 </ul>
             </aside>
             <section class="container-content">
@@ -98,7 +108,7 @@
                                 </div>
                                 <p>支持MP4、AVI、mov等格式，且不超过1GB，支持jpg、bmp、jpeg、png图片格式。</p>
                                 <!-- <video src="http://www.iqiyi.com/d07d0588-1e79-4143-8431-62f193b110d8" controls></video> -->
-    <!-- </div>
+                <!-- </div>
     </div>
     <div class="release-product-item productDetail">
         <h2 class="title">产品信息</h2>
@@ -121,7 +131,7 @@
                                                         <option value="2">3</option>
                                                         <option value="3">4</option>
                                                         <option value="4">5</option> -->
-                        <!-- </select>
+                <!-- </select>
                     </div>
                     <span class="star">*</span>
                 </div>
@@ -131,22 +141,22 @@
                     <div class="layui-input-inline necessary">
                         <select name="filterTip" lay-filter="saixuan">
                             <option value="" selected="">请选择</option> -->
-                            <!-- <option value="0">5</option>
+                <!-- <option value="0">5</option>
                                                         <option value="1">6</option>
                                                         <option value="2">7</option>
                                                         <option value="3">8</option>
                                                         <option value="4">9</option> -->
-                        <!-- </select>
+                <!-- </select>
                     </div>
                     <div class="layui-input-inline necessary">
                         <select name="subTip" lay-filter="subsaixuan">
                             <option value="">请选择</option> -->
-                            <!-- <option value="0">5</option>
+                <!-- <option value="0">5</option>
                                                         <option value="1">6</option>
                                                         <option value="2">7</option>
                                                         <option value="3">8</option>
                                                         <option value="4">9</option> -->
-                        <!-- </select>
+                <!-- </select>
                     </div>
                     <span class="star">*</span>
                 </div>
@@ -186,31 +196,31 @@
             <div class="uploadImage-content-box">
                 <span></span>
                 <p>上传封面</p>
-            </div> --> 
-            <!-- <form accept-charset="UTF-8" enctype="multipart/form-data" id="uploadImgForm" name="fileinfo" style="display: none;">
+            </div> -->
+                <!-- <form accept-charset="UTF-8" enctype="multipart/form-data" id="uploadImgForm" name="fileinfo" style="display: none;">
                                             <input type="file" id="uploadImgInp" name="imageFile" accept="image/*" />
                                         </form> -->
-            <!-- <input type="file" id="uploadImgInp" name="imageFile" accept="image/*" style="display: none;"> -->
-            <!-- <img src="http://pic5.iqiyipic.com/image/20180731/e9/5d/v_117779482_m_601_160_90.jpg" alt=""> -->
-        <!-- </div> -->
+                <!-- <input type="file" id="uploadImgInp" name="imageFile" accept="image/*" style="display: none;"> -->
+                <!-- <img src="http://pic5.iqiyipic.com/image/20180731/e9/5d/v_117779482_m_601_160_90.jpg" alt=""> -->
+                <!-- </div> -->
 
-        <!-- </div>
+                <!-- </div>
     <button class="layui-btn layui-btn-normal releaseBtn">发布</button>
     </div>
     <div class="container-content-bottom" style="display: none;">暂无数据</div>
     </div> -->
-        <!-- <div class="contentWrap-item" data-type="tagManagement">
+                <!-- <div class="contentWrap-item" data-type="tagManagement">
             <div class="tag-management-Wrap">
                 <div class="tag-management-top">
                     <input type="text" value="" id="tagSearch" placeholder="搜索标签">
                     <ul class="tagCata"> -->
 
-                        <!-- <li class="placeholderELe">请选择</li> -->
-                        <!-- <li class="defaultTag" data-type="">公共安全</li>
+                <!-- <li class="placeholderELe">请选择</li> -->
+                <!-- <li class="defaultTag" data-type="">公共安全</li>
                                 <li>公共安全</li>
                                 <li>公共安全</li>
                                 <li>公共安全</li> -->
-                    <!-- </ul>
+                <!-- </ul>
                     <button class="btn newTag">新建标签</button>
                 </div>
 
@@ -224,7 +234,7 @@
 
         </section>
         <div class="clearfix "></div> -->
-        </section>
+            </section>
     </div>
     <div class="modal-shade "></div>
     <div class="project-modal ">
@@ -251,7 +261,8 @@
           <li>编辑Word时，支持实时字数统计。</li>
         </ul>  -->
                 <p class="project-more-improve ">【场景应用】</p>
-                <p class="project-more-improve-content ">多个前科人员在一周内任意30分钟内到达同一场所则告警。分别为涉黄2人在30分钟内到达同一场所则告警，涉毒2人，涉赌3人。 默认相似度93%（可调)</p>
+                <p class="project-more-improve-content ">多个前科人员在一周内任意30分钟内到达同一场所则告警。分别为涉黄2人在30分钟内到达同一场所则告警，涉毒2人，涉赌3人。
+                    默认相似度93%（可调)</p>
                 <!-- <ol class="project-improve-content ">
           <li>文件列表和文件夹管理体验优化，文档管理更方便；</li>
           <li>支持更多格式导出：设置页面大小、图片兼容、格式对齐等；</li>
@@ -308,13 +319,21 @@
     <!-- <script src="./js/switchContent.js "></script> -->
     <!-- <script src="./js/releaseProduct.js "></script> -->
     <!-- <script src="./js/tagManagement.js "></script> -->
-    <script>   
+    <script>
         $(function () {
+            $IF.getUserInfo();
+            console.log(11111);
+            if($IF.userInfo&&$IF.userInfo.role_id&&$IF.userInfo.role_id>=3)  window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));
+            initManageMenu();
+
+
+            // 进入高级管理页面判断用户角色权限
+
             let dataType = $('.container-aside-nav').find('li').eq(0).data('type');
             let content = $('.container-content');
             loadContent(dataType);
             $('.container-aside-nav-item').click(function () {
-               
+
                 let dataType = $(this).data('type');
                 if (dataType == 'tagManagement') {
                     $('.tagNav').show();
@@ -330,13 +349,177 @@
                 $(this).addClass('active').siblings().removeClass('active');
                 console.log(dataType);
                 content.html('');
-                loadContent(dataType)
+                loadContent(dataType);
 
             })
+            $('.user .userInfo').on('mouseover', function () {
+                let $logOut = $('.logOut');
+                $logOut.show();
+                //  $('.user .userInfo').on('mouseout',function(){
+                //   $logOut.hide();
+                //  })
+                $(this).on('mouseout', function () {
+                    $logOut.on('mouseover', function () {
+                        $logOut.show();
+                        $logOut.on('mouseout', function () {
+                            $logOut.hide();
+                            $logOut.off('mouseover');
+                            $logOut.off('mouseout');
+                            $(this).off('mouseout');
+                        })
 
-            $('.logOut').on('click', function () {
+                    });
+                    $logOut.hide();
+                })
 
+
+            })
+            // 修改密码
+            $("#changePass").on("click", function () {
+                var userInfo = $IF.userInfo;
+                var content = `
+        <div id="userPop" class="formWrap">
+            <form>
+                      <div class="formItem">
+                    <label for="addUser">姓名:</label>
+                    <input type="text" readonly id="addUser"  class="bgGray" value=${ userInfo ? userInfo.user_name : ''} name="username" autocomplete="new-username" placeholder="请输入姓名">
+                    <!-- <span class="star">*</span> -->
+                </div>
+                <div class="formItem">
+                    <label for="account">账号:</label>
+                    <input type="text" readonly  class="bgGray" value=${ userInfo ? userInfo.login : ''} id="account"  name="account"
+                        autocomplete="off" placeholder="请输入账号">
+                    <!-- <span class="star">*</span> -->
+                </div>
+                <div class="formItem">
+                    <label for="pass1">当前密码:</label>
+                    <input type="password" value="" name="password" class="nece" id="pass" autocomplete="new-password"
+                        placeholder="请输入当前密码">
+                    <span class="star">*</span>
+                </div>
+                 
+               
+                <div class="formItem">
+                    <label for="newPass">新密码:</label>
+                    <input type="password" value="" name="newpassword" class="nece" id="newPass" autocomplete="new-password"
+                        placeholder="请输入新密码">
+                    <span class="star">*</span>
+                </div>
+           
+            </form>
+        </div>`;
                 layer.open({
+                    btn: ['确定', '取消']
+                    , btnAlign: 'c'
+                    , title: '修改密码'
+                    , area: ['640px', '490px']
+                    , content: content
+                    , yes: function () {
+                        if (!checkFormData()) {
+                            if ($("#userPop").find('.formTip').length <= 0) {
+                                let $span = `<span class="colorRed formTip">请输入表格信息必选项</span>`
+                                $('#userPop').append($span);
+                            }
+                            // $IF.tips('请输入表格信息必选项', 'main', 1200, 'bottom', '');   
+                            return false;
+                        } else {
+                            let $formTip = $("#userPop").find('.formTip');
+                            if ($("#userPop").find('.formTip').length > 0) {
+                                $formTip.remove();
+                            }
+                        }
+                        // layer.closeAll();
+                        // localStorage.removeItem('token');
+                        // localStorage.removeItem('userinfo');
+                        // window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));
+                        // $IF['userInfo']=res.userinfo[0]；
+                        changePass();
+
+                    }
+                });
+
+            })
+            function changePass() {
+                if (!checkFormData()) {
+                    if ($(".formWrap form").find('.formTip').length <= 0) {
+                        let $span = `<span class="colorRed formTip">请输入表格信息必选项</span>`
+                        $('.formWrap form').append($span);
+                    }
+                    // $IF.tips('请输入表格信息必选项', 'main', 1200, 'bottom', '');   
+                    return false;
+                } else {
+                    let $formTip = $(".formWrap form").find('.formTip');
+                    if ($(".formWrap form").find('.formTip').length > 0) {
+                        $formTip.remove();
+                    }
+                }
+                let forms = $('.formWrap  form');
+                let roleId = $('.formWrap form').find('.limit .activeTag').data('id');
+                let pass = $('.formWrap form').find('input[name="password"]').val();
+                let newPass = $('.formWrap form').find('input[name="newpassword"]').val();
+                let formData = new FormData(forms[0]);
+                let md5Pass = $.md5(pass);
+                let newMd5pass = $.md5(newPass);
+                formData.append('password', md5Pass);
+                formData.append("account", $IF.userInfo.login);
+                formData.append("newpassword", newMd5pass);
+                // formData.append('roleId', roleId);
+                if ($('.imgBox').hasClass('imgHide')) fileObj.fileUrl = '';
+                // if (!fileObj.fileUrl) fileObj.fileUrl = '';
+                // formData.append('fileUrl', fileObj.fileUrl);
+                let formObj = {};
+                for (var pair of formData.entries()) {
+                    formObj[pair[0]] = pair[1];
+                }
+                // delete.formObj.newPass;
+                // if (state == "edit") {
+                let userid = $IF.userInfo.id;
+                $.ajax({
+                    type: "post",
+                    url: $IF.apiServer + '/user/changepw/' + userid,
+                    processData: false,
+                    contentType: "application/json",
+                    data: JSON.stringify(formObj),
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
+                    },
+                    success: function (res) {
+                        if (res && res.data && res.errCode == 0) {
+                            layer.open({
+                                btnAlign: 'c'
+                                , title: '修改密码'
+                                , content: res.data
+                            })
+                        } else {
+                            $IF.errCodefn(res);
+                        }
+
+                    },
+                    error: function (err) {
+                        $IF.errCodefn(err);
+                    }
+                })
+                // }
+            }
+            function checkFormData() {
+                var uploadFormFlag = true;
+                var neccesaray = $("#userPop .nece");
+                neccesaray.each(function (neccesarayDom) {
+                    if (this.tagName == 'INPUT') {
+                        if (!$(this).val()) uploadFormFlag = false;
+                    } else {
+                        if (!$(this).html()) uploadFormFlag = false;
+                    }
+
+
+                })
+                return uploadFormFlag;
+            }
+
+            $('#logOut').on('click', function () {
+
+                layer.open({    
                     btnAlign: 'c'
                     , title: '提示'
                     , content: '确定退出系统？'
@@ -351,28 +534,58 @@
                 });
 
             })
+            function initManageMenu() {
+                let roleId =  $IF.userInfo&&$IF.userInfo.role_id;
+                let management = $IF.management;
+                let $ul=$(".container-aside-nav");
+                let $li=null;
+                management.forEach((value, key) => {
+                    // if (value.roleId >= roleId) {
+                    //    return;
+                    // } 
+                    if(key==0){
+                        $li = `<li class="container-aside-nav-item active" data-type=${value.dataType}>
+                        <img src=${value.icon} alt=${value.name}>
+                        <span>${value.name}</span>
+                    </li>`
+                    }else{
+                        $li = `<li class="container-aside-nav-item" data-type=${value.dataType}>
+                        <img src=${value.icon} alt=${value.name}>
+                        <span>${value.name}</span>
+                    </li>`
+                    }     
+                   
+                     $ul.append($li);
+                   
+                })
+
+            }
             function loadContent(dataType) {
                 switch (dataType) {
                     case "productManagement":
                         setTimeout(function () {
-                            content.load('pages/productManagement.html?'+new Date().getTime());
+                            content.load('pages/productManagement.html?' + new Date().getTime());
                         }, 0)
                         break;
                     case "tagManagement":
                         setTimeout(function () {
-                            content.load('pages/tagManagement.html?'+new Date().getTime());
+                            content.load('pages/tagManagement.html?' + new Date().getTime());
                         }, 0)
                         break;
                     case "userManagement":
                         setTimeout(function () {
-                            content.load('pages/userManagement.html?'+new Date().getTime());
+                            content.load('pages/userManagement.html?' + new Date().getTime());
+                        }, 0)
+                        break;
+                    case "userSetting":
+                        setTimeout(function () {
+                            content.load('pages/userSetting.html?' + new Date().getTime());
                         }, 0)
                         break;
                     default:
                         break;
 
                 }
-
             }
         })
 

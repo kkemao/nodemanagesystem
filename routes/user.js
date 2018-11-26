@@ -31,10 +31,9 @@ var router = express.Router();
         var id = req.params.id;
         var data = req.body;
         console.log(data);
-        if(data && data.username && data.account && data.password && data.roleId){
+        if(data && data.username && data.account && data.roleId){
             var sql = `update t_user_info t set
                         t.login = '${data.account}',
-                        t.password = '${data.password}',
                         t.user_name = '${data.username}', 
                         t.create_time = '${new Date().format('yyyy-MM-dd hh:mm:ss')}', 
                         t.role_id = '${data.roleId}', 
@@ -49,17 +48,53 @@ var router = express.Router();
         }
     });
 
+    // 修改密码
+    router.post('/changepw/:id', function(req, res, next){
+        var id = req.params.id;
+        var data = req.body;
+        console.log(data);
+        if(data && data.username && data.account && data.password && data.newpassword){
+            let sql = `select count(*) as c from t_user_info u 
+                    where u.id = ${id} and u.password = '${data.password}' and u.login = '${data.account}'`;
+                            console.log(sql);
+            db.doPromise(sql)
+                .then(function(rows){
+                    // console.log('zkf-count', rows);
+                    if(rows.length > 0 && rows[0]['c'] && rows[0]['c'] > 0){
+                        let sql = `update t_user_info t set
+                        t.password = '${data.newpassword}'
+                        where t.id = ${id} and t.password = '${data.password}' and t.login = '${data.account}'`;
+                        // console.log('zkf-sql', sql);
+                        db.do(sql, function(err, rows){
+                            rows ? res.send({errCode: 0, data: '修改成功', value: rows}) : res.send({errCode: 1001, data: '修改失败'});
+                        });
+                        delToken(id);
+                    }else{
+                        res.send({errCode: 1001, data: '当前密码输入不正确', value: rows})
+                    }
+                },function (err){
+                    res.send({errCode: 0, data: '当前密码输入不正确', value: rows})
+                });
+        }else{
+            res.send({errCode: 1001, data: ' 参数不全'});
+        }
+    });
+
     // 删除用户
     router.delete('/delete/:id', function(req, res, next){
         var id = req.params.id;
-        if(id <= 3){
-            res.send({errCode: 1001, data: '您无权删除该账号，删除失败'});
-            return;
-        }
+        // if(id <= 33333333){
+        //     // res.send({errCode: 1001, data: '您无权删除该账号，删除失败'});
+        //     res.send({errCode: 1001, data: '暂不支持删除账号，请联系管理员。'});
+        //     return;
+        // }
         var sql = `delete from t_user_info where t_user_info.id = ${id}`;
             db.do(sql, function(err, rows){
                 rows ? res.send({errCode: 0, data: '删除成功', value: rows}) : res.send({errCode: 1001, data: '删除失败'});
             });
+        
+        // delete token
+        delToken(id);
     });
 
     // 获取所有用户
@@ -91,4 +126,10 @@ var router = express.Router();
         });
     });
 
+    function delToken(id) {
+        var sql = `delete from t_token_info where t_token_info.login in (select login from t_user_info where t_user_info.id = ${id})`;
+        db.do(sql, function(err, rows){
+            console.log('token delete...', err, rows);
+        });
+    }
 module.exports = router;

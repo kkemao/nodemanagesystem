@@ -150,6 +150,7 @@ a {
 .main-header .user {
     position: absolute;
     right: 60px;
+    z-index: 8;
 }
 
 .logo {
@@ -163,10 +164,10 @@ a {
     box-sizing: border-box;
 }
 .user{
-    background: white;
+    /* background: white; */
     /* width:-webkit-calc(100% - 311px);
     width: calc(100% - 311px); */
-    padding-right: 31px;
+    /* padding:0 31px; */
 }
 
 .user>div {
@@ -179,11 +180,36 @@ a {
     vertical-align: middle;
 }
 .logOut{
-    margin-left: 20px;
+    position: relative;
+    background: #958686;
+    border-radius: 10px;
+    margin-top: -5px;
+    text-align: center;
+}
+
+.logOut a{
+    color: white;
+}
+.user .logOut::before{
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -16px;
+    left: 13px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent #958686 transparent;
 }
 .user .logOut:hover{
     color: #4994ff;
 }
+.user .logOut li{
+    padding: 5px;
+    line-height: 24px;
+    text-align: center;
+    height: 24px;
+}  
 
 /*主模块*/
 
@@ -225,6 +251,10 @@ a {
 
 .container-aside-nav-item img {
     vertical-align: middle;
+}
+.container-aside-nav .container-aside-nav-item:not(:first-child) img{
+    width: 20px;
+    height: 20px;
 }
 
 .container-content {
@@ -626,6 +656,12 @@ a {
     left: 358px;
 
 }
+.formWrap form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 /* 添加遮罩层 */
 .container-content-bottom{
     width: 100%;
@@ -689,9 +725,14 @@ a {
     color: white;
     
 }
-.newTag.bgGray,.userDelete.bgGray{
-    background: #c3bdbd;
-    cursor: default;
+.newTag.bgGray{
+        background: #c3bdbd;
+        cursor: default;
+}
+.userEdit.bgGray,.userDelete.bgGray{
+       /* background: #c3bdbd; */
+        cursor: not-allowed;
+        color: #666;
 }
 .newTag{
     cursor: pointer;
@@ -786,6 +827,7 @@ a {
     margin: 20px 50px 0 50px;
     height: -webkit-calc(100% - 96px);
     background: white;
+	overflow: auto;
 }
 .tag-management-table table,.user-management-table table{
     width: 100%;  
@@ -977,7 +1019,7 @@ left: 358px;
 }
 #userPop  form div:nth-last-child(2) .star{
      position: absolute;
-     left: 288px;
+     left: 295px;
 }
 #uploadUserImg .imgShow{
     display: block;
@@ -1007,6 +1049,11 @@ left: 358px;
 .userManage-menu li.activeMenu{
     color: #1e9fff;
 }
+  
+.formItem .bgGray {
+    background: #c3bdbd;
+    /* cursor: default; */
+}
 /* 多媒体适配 */
 
 @media (max-width: 1366px) {
@@ -1014,7 +1061,11 @@ left: 358px;
         padding:   30px 0px 0px 30px;
     }
     .container-content-item{
-        margin-right:15px; 
+        margin-right:15px;              
     }
     
+}
+.user-management-Wrap{
+	height: 100%;
+	overflow: auto;
 }

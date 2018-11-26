@@ -29,11 +29,11 @@
         $IF.getUserInfo();
         initUserInfo();
         let userArr = [];
+        let userId=$IF.userInfo.role_id;
         $('#addUser').on('click', function () {
             initAccountPop();
             state = '';
         })
-        console.log(1);
         getRole();
         function getRole() {
             $.ajax({
@@ -83,6 +83,9 @@
 
         // }).on("change", "#uploadUser", uploadImg);
         $('.usersInfo').on('click', 'tr .userEdit', function (e) {
+            if ($(this).hasClass('bgGray')) {
+                return;
+            }
             state = 'edit';
             let userId = $(e.target).closest('tr').data('userid');
             // console.log(userId);
@@ -181,9 +184,9 @@
                        <td>${user.role_name}</td>
                        <td>${new Date(user.create_time).format('yyyy-MM-dd hh:mm:ss')}</td>
                        <td>
-                           <span class="userEdit">编辑</span>
-                           <span class="userDelete ${user.role_id < $IF.userInfo.role_id ? 'bgGray' : ''}">删除</span>
-                       </td>
+                           <span class="userEdit ${(user.role_id <= $IF.userInfo.role_id)&&(user.id!=$IF.userInfo.id)? 'bgGray' : ''}">编辑</span>
+                           <span class="userDelete ${$IF.userInfo.role_id>1||($IF.userInfo.role_id==1&&($IF.userInfo.role_id==user.role_id))? 'bgGray' : ''}">删除</span>
+                       </td>    
                    </tr>`
                             usersInfo.append($tr);
                         })
@@ -203,6 +206,7 @@
                         setUserPop(res.data[0]);
                         console.log(1);
                     } else {
+
                         $IF.errCodefn(res);
                     }
 
@@ -363,7 +367,7 @@
         }
         function setData(ele,url){
             ele.find('img')[0].src = $IF.apiServer + url;
-       let $deleteFileBtn=ele.find(".deleteFile");
+          let $deleteFileBtn=ele.find(".deleteFile");
         $deleteFileBtn.click(function () {
               ele.removeClass('imgShow').addClass('imgHide');
               ele.find('.colorRed').remove();
@@ -387,7 +391,6 @@
                 }
             }
             let forms = $('#userPop form');
-        
 
             let roleId = $('#userPop').find('.limit .activeTag').data('id');
             let pass = $('#userPop').find('input[type="password"]').val();
@@ -470,22 +473,25 @@
         function initAccountLimit(roleId) {
             $IF.roleArr.forEach(function (item, key) {
                 let $limitPlaceHolder = null;
+                
                 if (key == 0) {
-                    if (roleId) {
+                    if (roleId && roleId) {
                         $limitPlaceHolder = `<li class="limitPlaceHolder" data-id='${roleId}'>${$IF.roleObj && $IF.roleObj[roleId].role_name}</li>`
                     } else {
                         $limitPlaceHolder = `<li class="limitPlaceHolder" data-id=''>请选择</li>`
                     }
                 }
-                let $li = `<li class='${item.id == roleId ? "activeTag" : ""}' data-id=${item.id}>${item.role_name}</li>`
+                console.log("xxq-------",$IF.userInfo.role_id);
                 $('#userPop').find('.limit').append($limitPlaceHolder);
+                if(item.id<$IF.userInfo.role_id) return;
+                let $li = `<li class='${item.id == roleId ? "activeTag" : ""}' data-id=${item.id}>${item.role_name}</li>`
+               
                 $('#userPop').find('.limit').append($li);
             })
         }
         function checkFormData() {
             var uploadFormFlag = true;
             var neccesaray = $('#userPop .necessary').not("input[name=password]");
-         
             neccesaray.each(function (neccesarayDom) {
                 if (this.tagName == 'INPUT') {
                     if (!$(this).val()) uploadFormFlag = false;

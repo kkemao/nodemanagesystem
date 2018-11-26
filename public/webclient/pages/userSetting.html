@@ -1,0 +1,38 @@
+<body>
+    <div class="contentWrap-item  userSettingWrap" data-type="userSetting">
+        <h1 class="userSetting-title">修改密码</h1>
+        <div class="formWrap">
+            <form>
+                 <div class="form-left">
+                      <div class="formItem">
+                    <label for="addUser">姓名:</label>
+                    <input type="text" readonly id="addUser" name="username" autocomplete="new-username" placeholder="请输入姓名">
+                    <!-- <span class="star">*</span> -->
+                </div>
+                <div class="formItem">
+                    <label for="account">账号:</label>
+                    <input type="text" readonly value="${userObj ? userObj.login : ''}" id="account"  name="account"
+                        autocomplete="off" placeholder="请输入账号">
+                    <!-- <span class="star">*</span> -->
+                </div>
+                <div class="formItem ${userObj ? 'passHide' : 'passShow'}">
+                    <label for="pass1">当前密码:</label>
+                    <input type="password" value="" name="password" class="nece" id="pass" autocomplete="new-password"
+                        placeholder="请输入当前密码">
+                    <span class="star">*</span>
+                </div>
+                 
+               
+                <div class="formItem ${userObj ? 'passHide' : 'passShow'}">
+                    <label for="newPass">新密码:</label>
+                    <input type="password" value="" name="newpassword" class="nece" id="newPass" autocomplete="new-password"
+                        placeholder="请输入新密码">
+                    <span class="star">*</span>
+                </div>
+            </div>
+              
+            </form>
+        </div>
+
+    </div>
+</body>

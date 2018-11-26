@@ -1,0 +1,7 @@
+
+$(function () {
+   
+    $IF.getUserInfo();
+    initUserInfo();
+    }
+)

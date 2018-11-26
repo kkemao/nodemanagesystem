@@ -14,7 +14,7 @@ $(function () {
     $IF.errCodefn = function (res) {
         //未登陆用户访问
         if (res.errCode == 1002) {
-            console.log(1111);
+       
             localStorage.setItem('token', '');
             // $IF['userInfo']=res.userinfo[0];
             window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));

@@ -76,10 +76,12 @@
 
 	}
 	.project-modal video,.project-modal img{
-		width: 940px;
-		height:531px;
-		/* margin: 0; */
-		padding: 0 70px;
+	    min-width: 600px;
+    min-height: 300px;
+    max-width: 100%;
+    margin: 0 auto;
+	padding: 0 70px;
+	box-sizing: border-box;
 	}
 
 	.project-modal-title{
