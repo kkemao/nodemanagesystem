@@ -200,7 +200,7 @@
             <span class="project-name">深目v2.1上线</span>
             <div class="project-time">发布时间:<span class="project-publish-time">2018年03月19日</span></div>
         </div>
-        <video src="" controls="controls">
+        <video src="" controls="controls" id="videoDom">
             您的浏览器不支持 video 标签。
         </video>
         <div class="project-modal-info">
@@ -461,6 +461,7 @@
                     $(".management").remove();
                 } 
             }
+            $('#videoDom').bind('contextmenu',function() { return false; });
         })
     </script>
 

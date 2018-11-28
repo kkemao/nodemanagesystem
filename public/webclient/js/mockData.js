@@ -283,7 +283,7 @@ $(function() {
               </div>
               <div class="project-modal-content">
               <div>
-              <video class="${item.scene_type == 'img' ? 'hide' : 'show'}" src="${$IF.apiServer + item.scene}" controls="controls">
+              <video class="${item.scene_type == 'img' ? 'hide' : 'show'}" id="videoDom" src="${$IF.apiServer + item.scene}" controlsList="nodownload" controls="controls">
                 您的浏览器不支持 video 标签。
               </video>
               <img class="${item.scene_type == 'img' ? 'show' : 'hide'}" src="${$IF.apiServer + item.scene}" alt="图片"/>
@@ -330,6 +330,8 @@ $(function() {
                 `;
 
         $(".project-modal").html(domString);
+        
+        $('#videoDom').bind('contextmenu',function() { return false; });
     }
     function initUserInfo() {
         $IF.getUserInfo();
