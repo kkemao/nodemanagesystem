@@ -29,12 +29,13 @@
         $IF.getUserInfo();
         initUserInfo();
         let userArr = [];
-        let userId=$IF.userInfo.role_id;
+        let userId = $IF.userInfo.role_id;
         $('#addUser').on('click', function () {
             initAccountPop();
             state = '';
         })
         getRole();
+
         function getRole() {
             $.ajax({
                 type: "get",
@@ -95,11 +96,11 @@
                 return;
             }
             layerPop({
-                btn: ['确定', '取消']
-                , btnAlign: 'c'
-                , title: '提示'
-                , content: "确定删除?"
-                , callBack: deleteUser.bind(this)
+                btn: ['确定', '取消'],
+                btnAlign: 'c',
+                title: '提示',
+                content: "确定删除?",
+                callBack: deleteUser.bind(this)
                 //编辑账户
             });
 
@@ -112,6 +113,7 @@
                 searchUser(searchValue);
             }
         });
+
         function uploadImg() {
             inputLock = true;
             const files = this.files;
@@ -151,8 +153,9 @@
                 }
             });
         }
+
         function initUserInfo() {
-           
+
             $.ajax({
                 type: "get",
                 url: $IF.apiServer + "/user",
@@ -162,7 +165,7 @@
                 success: function (res) {
                     if (res && res.data && res.errCode == 0) {
                         let users = res.data;
-                        userArr=users;
+                        userArr = users;
                         appendUserEle(users);
                     } else {
                         $IF.errCodefn(res);
@@ -171,14 +174,16 @@
             })
 
         }
-        function  appendUserEle(users){
+
+        function appendUserEle(users) {
             let usersInfo = $('.usersInfo');
             usersInfo.html('');
             users.forEach(function (user, key) {
-                            // console.log(user);
-                            //  data-roleid=${user.role_id}
-                            // ${user.role_id<$IF.usersInfo.role_id?'bgGray':''}" 
-                            let $tr = `<tr data-userid=${user.id} data-roleid=${user.role_id} >
+                // console.log(user);
+                //  data-roleid=${user.role_id}
+                // ${user.role_id<$IF.usersInfo.role_id?'bgGray':''}" 
+                let $tr =
+                    `<tr data-userid=${user.id} data-roleid=${user.role_id} >
                        <td>${user.user_name}</td>
                        <td>${user.login}</td>
                        <td>${user.role_name}</td>
@@ -188,30 +193,31 @@
                            <span class="userDelete ${$IF.userInfo.role_id>1||($IF.userInfo.role_id==1&&($IF.userInfo.role_id==user.role_id))? 'bgGray' : ''}">删除</span>
                        </td>    
                    </tr>`
-                            usersInfo.append($tr);
-                        })
+                usersInfo.append($tr);
+            })
         }
+
         function initAccountPop(userId) {
             // console.log(state);
             if (state == "edit" && userId) {
                 $.ajax({
-                type: "get",
-                url: $IF.apiServer + "/user/"+userId,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                },
-                success: function (res) {
-                    if (res && res.data && res.errCode == 0) {
-                        // console.log(res.data[0]);
-                        setUserPop(res.data[0]);
-                        console.log(1);
-                    } else {
+                    type: "get",
+                    url: $IF.apiServer + "/user/" + userId,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
+                    },
+                    success: function (res) {
+                        if (res && res.data && res.errCode == 0) {
+                            // console.log(res.data[0]);
+                            setUserPop(res.data[0]);
+                            console.log(1);
+                        } else {
 
-                        $IF.errCodefn(res);
+                            $IF.errCodefn(res);
+                        }
+
                     }
-
-                }
-            })
+                })
             } else {
                 setUserPop();
             }
@@ -219,33 +225,33 @@
 
 
         }
+
         function deleteUser() {
             let dataId = $(this).closest('tr').data('userid');
             $.ajax({
-            type: "delete",
-            url: $IF.apiServer+'/user/delete/'+dataId,
-            beforeSend: function(xhr){
-                xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-            },
-            success: function (res) {
-                if (res && res.data && res.errCode == 0) {
-                    layer.open({
-                        btnAlign: 'c'
-                        , title: '提示'
-                        , content: '删除成功'
-                        , yes: function () {
-                            layer.closeAll();
-                            $('.usersInfo').html('');
-                            initUserInfo();
-                        }
-                    }); 
+                type: "delete",
+                url: $IF.apiServer + '/user/delete/' + dataId,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
+                },
+                success: function (res) {
+                    if (res && res.data && res.errCode == 0) {
+                        layer.open({
+                            btnAlign: 'c',
+                            title: '提示',
+                            content: '删除成功',
+                            yes: function () {
+                                layer.closeAll();
+                                $('.usersInfo').html('');
+                                initUserInfo();
+                            }
+                        });
+                    } else {
+                        $IF.errCodefn(res);
+                    }
+
                 }
-                else {
-                    $IF.errCodefn(res);
-                }
-    
-            }
-        });
+            });
 
         }
         //编辑或者添加用户
@@ -253,7 +259,8 @@
             let arr = [];
             if (searchValue) {
                 userArr.forEach(function (item, key) {
-                    if (item.user_name.indexOf(searchValue) !== -1||item.login.indexOf(searchValue) !== -1||item.role_name.indexOf(searchValue) !== -1) {
+                    if (item.user_name.indexOf(searchValue) !== -1 || item.login.indexOf(searchValue) !==
+                        -1 || item.role_name.indexOf(searchValue) !== -1) {
                         arr.push(item);
                     }
 
@@ -265,11 +272,13 @@
             } else {
                 $('.user-management-bottom').hide();
             }
-           appendUserEle(arr);
+            appendUserEle(arr);
         }
+
         function setUserPop(userObj) {
 
-            let addAccountEle = `<div id="userPop" data-userid="${userObj ? userObj.id : ''}">
+            let addAccountEle =
+                `<div id="userPop" data-userid="${userObj ? userObj.id : ''}">
     <form>
     <div>
         <label for="addUser">姓名</label>
@@ -309,12 +318,12 @@
 
 </div>`;
             let layOpt = {
-                btn: ['确定', '取消']
-                , btnAlign: 'c'
-                , title: '添加账号'
-                , area: ['640px', '490px']
-                , content: addAccountEle
-                , callBack: addAccountfn
+                btn: ['确定', '取消'],
+                btnAlign: 'c',
+                title: '添加账号',
+                area: ['640px', '490px'],
+                content: addAccountEle,
+                callBack: addAccountfn
                 //添加账户
             }
             layerPop(layOpt);
@@ -365,17 +374,19 @@
             //用户权限初始化
 
         }
-        function setData(ele,url){
+
+        function setData(ele, url) {
             ele.find('img')[0].src = $IF.apiServer + url;
-          let $deleteFileBtn=ele.find(".deleteFile");
-        $deleteFileBtn.click(function () {
-              ele.removeClass('imgShow').addClass('imgHide');
-              ele.find('.colorRed').remove();
-            
-        });
+            let $deleteFileBtn = ele.find(".deleteFile");
+            $deleteFileBtn.click(function () {
+                ele.removeClass('imgShow').addClass('imgHide');
+                ele.find('.colorRed').remove();
+
+            });
         }
+
         function addAccountfn() {
-           
+
             //验证表单输入是否完全
             if (!checkFormData()) {
                 if ($("#userPop").find('.formTip').length <= 0) {
@@ -386,7 +397,7 @@
                 return false;
             } else {
                 let $formTip = $("#userPop").find('.formTip');
-                if ($("#userPop").find('.formTip').length>0) {
+                if ($("#userPop").find('.formTip').length > 0) {
                     $formTip.remove();
                 }
             }
@@ -470,25 +481,29 @@
             }
 
         }
+
         function initAccountLimit(roleId) {
             $IF.roleArr.forEach(function (item, key) {
                 let $limitPlaceHolder = null;
-                
+
                 if (key == 0) {
                     if (roleId && roleId) {
-                        $limitPlaceHolder = `<li class="limitPlaceHolder" data-id='${roleId}'>${$IF.roleObj && $IF.roleObj[roleId].role_name}</li>`
+                        $limitPlaceHolder =
+                            `<li class="limitPlaceHolder" data-id='${roleId}'>${$IF.roleObj && $IF.roleObj[roleId].role_name}</li>`
                     } else {
                         $limitPlaceHolder = `<li class="limitPlaceHolder" data-id=''>请选择</li>`
                     }
                 }
-                console.log("xxq-------",$IF.userInfo.role_id);
+                console.log("xxq-------", $IF.userInfo.role_id);
                 $('#userPop').find('.limit').append($limitPlaceHolder);
-                if(item.id<$IF.userInfo.role_id) return;
-                let $li = `<li class='${item.id == roleId ? "activeTag" : ""}' data-id=${item.id}>${item.role_name}</li>`
-               
+                if (item.id < $IF.userInfo.role_id) return;
+                let $li =
+                    `<li class='${item.id == roleId ? "activeTag" : ""}' data-id=${item.id}>${item.role_name}</li>`
+
                 $('#userPop').find('.limit').append($li);
             })
         }
+
         function checkFormData() {
             var uploadFormFlag = true;
             var neccesaray = $('#userPop .necessary').not("input[name=password]");
@@ -503,20 +518,25 @@
             })
             return uploadFormFlag;
         }
+
         function layerPop(opt) {
             let defaultOpt = {
-                btn: ['确定']
-                , btnAlign: 'c'
-                , area: ['280px', '190px']
-                , title: "提示"
-                , yes: function () {
+                btn: ['确定'],
+                btnAlign: 'c',
+                area: ['280px', '190px'],
+                title: "提示",
+                yes: function () {
                     var flag = true;
                     if (opt.callBack() === false) {
                         flag = opt.callBack();
                     }
                     if (flag) layer.closeAll();
 
-                }
+                },
+                success: function (layero, index) {
+                    $(layero).watermark(JSON.parse(localStorage.getItem(
+                        'watermarkinfo')));
+                },
             }
             let newOpt = Object.assign({}, defaultOpt, opt);
             layer.open(newOpt);

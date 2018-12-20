@@ -47,26 +47,30 @@ a {
 }
 
 /* 设置滚动条的样式 */
-::-webkit-scrollbar {    
+::-webkit-scrollbar {
     width: 6px;
-  }
-  /* 滚动槽 */
-  ::-webkit-scrollbar-track {    
-    background: #fff;   
+}
+
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    background: #fff;
     border-radius: 0px;
-  }
-  /* 滚动条滑块 */
-  ::-webkit-scrollbar-thumb {    
-    border-radius: 0px;    
-    background: #a6a6a6;    
-  }
-  ::-webkit-scrollbar-thumb:window-inactive {    
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    background: #a6a6a6;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
     /* background: rgba(255,0,0,0.4); */
-  }
+}
+
 /* end scrollbar */
 
 /* 登录模块 */
-.loginWrap{
+.loginWrap {
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -77,56 +81,67 @@ a {
     padding: 0px 250px;
     background: url(../img/login_bg.png);
 }
-.productLabrary{
+
+.productLabrary {
     width: 865px;
     height: 396px;
     background: url(../img/productLabrary.png) no-repeat;
     background-origin: content-box;
 }
-.loginBox{
+
+.loginBox {
     width: 424px;
     height: 396px;
-    background: rgba(255,255,255,1);
+    background: rgba(255, 255, 255, 1);
 }
-.loginBox h3{
-    padding:43px 50px;
+
+.loginBox h3 {
+    padding: 43px 50px;
     text-align: center;
 }
-.loginBox form{
+
+.loginBox form {
     padding: 0 30px;
 }
-.loginBox form span{
+
+.loginBox form span {
     font-size: 14px;
 }
-.loginBox form input{
+
+.loginBox form input {
     text-indent: 10px;
-    width:362px;
+    width: 362px;
     height: 42px;
-    margin-bottom:39px;
+    margin-bottom: 39px;
     border: 1px solid #DBDBDB;
-} 
-.loginBox form input[type="checkbox"]{
+}
+
+.loginBox form input[type="checkbox"] {
     margin-bottom: 33px;
     margin-right: 20px;
-    width:14px;
-    height:14px; 
+    width: 14px;
+    height: 14px;
 }
-#loginBtn{
+
+#loginBtn {
     border: 0;
-   width: 362px;
-   height: 50px;
-   background: rgba(22,212,219,1);
-   color:white;
+    width: 362px;
+    height: 50px;
+    background: rgba(22, 212, 219, 1);
+    color: white;
 }
-.loginErrorTip{
+
+.loginErrorTip {
     position: absolute;
-    bottom:110px;
+    bottom: 110px;
     color: red;
 
 }
-#loginForm{
+
+#loginForm {
     position: relative;
 }
+
 /*main模块*/
 
 .main {
@@ -158,12 +173,13 @@ a {
     font-size: 16px;
     font-weight: lighter;
     text-indent: 59px;
-    width:280px;
-    padding-left:26px; 
+    width: 280px;
+    padding-left: 26px;
     background-color: #081A30;
     box-sizing: border-box;
 }
-.user{
+
+.user {
     /* background: white; */
     /* width:-webkit-calc(100% - 311px);
     width: calc(100% - 311px); */
@@ -173,13 +189,15 @@ a {
 .user>div {
     float: right;
 }
+
 /* .user span{
     color: white;
 } */
 .user img {
     vertical-align: middle;
 }
-.logOut{
+
+.logOut {
     position: relative;
     background: #958686;
     border-radius: 10px;
@@ -187,10 +205,11 @@ a {
     text-align: center;
 }
 
-.logOut a{
+.logOut a {
     color: white;
 }
-.user .logOut::before{
+
+.user .logOut::before {
     content: '';
     width: 0;
     height: 0;
@@ -201,15 +220,17 @@ a {
     border-style: solid;
     border-color: transparent transparent #958686 transparent;
 }
-.user .logOut:hover{
+
+.user .logOut:hover {
     color: #4994ff;
 }
-.user .logOut li{
+
+.user .logOut li {
     padding: 5px;
     line-height: 24px;
     text-align: center;
     height: 24px;
-}  
+}
 
 /*主模块*/
 
@@ -239,7 +260,8 @@ a {
 .container-aside-nav>li {
     padding: 18px 0 18px 30px;
 }
-.container-aside-nav .container-aside-nav-item.active{
+
+.container-aside-nav .container-aside-nav-item.active {
     padding: 18px 0 18px 30px;
     background: #16D4DB;
 }
@@ -252,7 +274,8 @@ a {
 .container-aside-nav-item img {
     vertical-align: middle;
 }
-.container-aside-nav .container-aside-nav-item:not(:first-child) img{
+
+.container-aside-nav .container-aside-nav-item:not(:first-child) img {
     width: 20px;
     height: 20px;
 }
@@ -261,13 +284,13 @@ a {
     border-top: 1px solid #e2e2e2;
     position: relative;
     /*box-sizing: border-box; */
-    margin-left: 280px; 
+    margin-left: 280px;
     /* overflow: auto; */
     /* padding: 0 50px; */
     height: 100%;
 }
 
-.container-content-wrap{
+.container-content-wrap {
     flex: 1;
     /* overflow: auto; */
     box-sizing: border-box;
@@ -276,12 +299,14 @@ a {
     position: relative;
     padding: 30px 30px 0px 60px;
 }
-.content-card-wrap>ul{
+
+.content-card-wrap>ul {
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-around; */
 }
-.content-card-wrap{
+
+.content-card-wrap {
     height: -webkit-calc(100%-130px);
     overflow: auto;
     margin-top: 32px;
@@ -299,10 +324,12 @@ a {
     justify-content: space-between;
     /* margin-left: 15px; */
 }
-.container-content-top form{
+
+.container-content-top form {
     position: absolute;
     left: 274px;
 }
+
 .container-content-top .search {
     width: 228px;
     height: 40px;
@@ -336,28 +363,31 @@ a {
     cursor: pointer;
 }
 
-.layui-unselect.layui-form-select.all-product{
+.layui-unselect.layui-form-select.all-product {
     margin-left: 15px;
-    width: 172px;   
+    width: 172px;
     height: 42px;
 }
+
 .all-product .layui-unselect.layui-form-select,
-.all-product .layui-unselect.layui-form-select input
-{
+.all-product .layui-unselect.layui-form-select input {
     width: 100%;
     height: 42px;
 }
-.all-product .layui-input-block{
-    margin-left:0px;
+
+.all-product .layui-input-block {
+    margin-left: 0px;
 }
-.all-product select{
+
+.all-product select {
     background: url('../img/down.png') no-repeat 155px center;
     width: 100%;
     height: 100%;
     text-indent: 10px;
-    border:1px solid #DBDBDB;
+    border: 1px solid #DBDBDB;
 }
-.all-product select option{
+
+.all-product select option {
     height: 100%;
     width: 100%;
 }
@@ -463,12 +493,14 @@ a {
     background: url(../img/icon2.png) no-repeat 0 1px;
     background-size: 18px 18px;
 }
-.container-content-item-view .edit{
-    margin-left:100px;
-    padding:13px 8px;
+
+.container-content-item-view .edit {
+    margin-left: 100px;
+    padding: 13px 8px;
 }
-.container-content-item-view .delete{
-   
+
+.container-content-item-view .delete {
+
     padding: 13px 8px;
 }
 
@@ -496,31 +528,35 @@ a {
     padding: 16px 0 16px 38px;
     font-size: 16px;
 }
-.release-product-content{
+
+.release-product-content {
     display: none;
     box-sizing: border-box;
     height: 100%;
 }
-.release-product-content .release-product-title{
+
+.release-product-content .release-product-title {
     background: rgba(255, 255, 255, 1);
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 76px;
 }
-.release-product-title .back{
-    border:1px solid #4994FF;
-    padding:5px 10px;
+
+.release-product-title .back {
+    border: 1px solid #4994FF;
+    padding: 5px 10px;
     margin-right: 38px;
     cursor: pointer;
 }
-.release-product-title h2{
+
+.release-product-title h2 {
     margin-left: 38px;
     font-size: 18px;
 }
 
 .release-product-content h2 {
-   
+
     font-weight: normal;
     background: rgba(255, 255, 255, 1);
 }
@@ -557,18 +593,19 @@ a {
     ;
 }
 
-.uploadImage{
+.uploadImage {
     height: 360px;
 }
 
 .uploadImage-content-box,
-.uploadVideo-content-box ,.upload-userImg-box{
+.uploadVideo-content-box,
+.upload-userImg-box {
     display: flex;
     border: 1px dotted #cccccc;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background:rgba(250,250,250,1);
+    background: rgba(250, 250, 250, 1);
 }
 
 .uploadVideo-content-box {
@@ -581,115 +618,134 @@ a {
     font-size: 12px;
 }
 
-.uploadVideo-content-box strong,.upload-userImg-box strong{
+.uploadVideo-content-box strong,
+.upload-userImg-box strong {
     color: #4994FF;
     cursor: pointer;
 }
 
-.uploadImage-content-box{
+.uploadImage-content-box {
     width: 330px;
     height: 230px;
 }
-.upload-userImg-box{
+
+.upload-userImg-box {
     width: 200px;
     height: 200px;
 }
 
 .uploadImage-content-box>span,
 .uploadVideo-content-box>span,
-.upload-userImg-box>span.upLoadImgIcon
-{
+.upload-userImg-box>span.upLoadImgIcon {
     width: 32px;
     height: 32px;
     display: inline-block;
     background: url(../img/upload.png) no-repeat;
     margin-bottom: 20px;
 }
-.releaseBtn{
+
+.releaseBtn {
     width: 240px;
     height: 48px;
-    background: rgba(35,107,228,1);
-    margin:30px 0 70px 43px;
+    background: rgba(35, 107, 228, 1);
+    margin: 30px 0 70px 43px;
 }
-.uploadVideo-content,.uploadImage-content{
+
+.uploadVideo-content,
+.uploadImage-content {
     position: relative;
 }
-.uploadVideo-content video{
+
+.uploadVideo-content video {
     width: 420px;
     height: 180px;
     position: absolute;
-    top:34px;
+    top: 34px;
     left: 39px;
 }
-.uploadVideo-content img{
+
+.uploadVideo-content img {
     width: 420px;
     height: 180px;
     position: absolute;
-    top:34px;
+    top: 34px;
     left: 39px;
 }
-.uploadImage-content img{
+
+.uploadImage-content img {
     width: 330px;
     height: 230px;
     position: absolute;
-    top:34px;
+    top: 34px;
     left: 39px;
 }
-#date{
+
+#date {
     background: url(../img/calendar.png) no-repeat 290px center;
 }
+
 /* 添加已上传文件删除按钮 */
-.topDeleteFile,.deleteFile{
+.topDeleteFile,
+.deleteFile {
     display: inline-block;
-    background:#C2C2C2 url('../img/deleteactive.png') no-repeat center center;
-    width:20px;
+    background: #C2C2C2 url('../img/deleteactive.png') no-repeat center center;
+    width: 20px;
     height: 20px;
     position: absolute;
-    border-radius:100%; 
+    border-radius: 100%;
 }
-.topDeleteFile{
-    top:25px;
-    left:450px;
+
+.topDeleteFile {
+    top: 25px;
+    left: 450px;
 }
-.uploadImage-content .deleteFile{  
-    top:25px;
+
+.uploadImage-content .deleteFile {
+    top: 25px;
     left: 358px;
 
 }
-.formWrap form{
+
+.formWrap form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 /* 添加遮罩层 */
-.container-content-bottom{
+.container-content-bottom {
     width: 100%;
     background: rgb(245, 245, 245);
     color: rgba(50, 50, 50, 0.45);
     text-align: center;
     position: absolute;
-    top:200px;
+    top: 200px;
     left: 0px;
 }
+
 /* 添加必选项 */
-.star{
+.star {
     display: inline-block;
     margin-top: 10px;
     color: red;
-    
+
 }
+
 /* 重定样式 layui表单样式 */
-.layui-form-item .layui-input-inline{
+.layui-form-item .layui-input-inline {
     width: 324px;
     margin-right: 15px;
 }
-.layui-form-item.layui-unselect.layui-form-select.tipLinkAge{
+
+.layui-form-item.layui-unselect.layui-form-select.tipLinkAge {
     width: 1100px;
 }
-.layui-form-select dl dd.layui-this{
+
+.layui-form-select dl dd.layui-this {
     background: rgba(35, 107, 228, 1)
 }
+
 /* .layui-unselect.layui-form-select .layui-input-inline{
    width:324px;
    margin-right: 15px;
@@ -703,8 +759,9 @@ a {
     width: 324px;
     height: 42px;
 }
-.layui-laypage .layui-laypage-curr .layui-laypage-em{
- background: #4994FF
+
+.layui-laypage .layui-laypage-curr .layui-laypage-em {
+    background: #4994FF
 }
 
 .layui-textarea {
@@ -716,31 +773,39 @@ a {
     width: 112px;
     margin-left: -32px;
 }
+
 /* 添加标签管理 */
-.btn{
-    width:100px;
+.btn {
+    width: 100px;
     height: 42px;
-    background:rgba(35, 107, 228, 1);
+    background: rgba(35, 107, 228, 1);
     border: 0;
     color: white;
-    
+
 }
-.newTag.bgGray{
-        background: #c3bdbd;
-        cursor: default;
+
+.newTag.bgGray {
+    background: #c3bdbd;
+    cursor: default;
 }
-.userEdit.bgGray,.userDelete.bgGray{
-       /* background: #c3bdbd; */
-        cursor: not-allowed;
-        color: #666;
+
+.userEdit.bgGray,
+.userDelete.bgGray {
+    /* background: #c3bdbd; */
+    cursor: not-allowed;
+    color: #666;
 }
-.newTag{
+
+.newTag {
     cursor: pointer;
 }
-.contentWrap-item{
+
+.contentWrap-item {
     height: 100%;
 }
-.tag-management-top input,.user-management-top input{
+
+.tag-management-top input,
+.user-management-top input {
     text-indent: 15px;
     width: 230px;
     height: 40px;
@@ -748,21 +813,24 @@ a {
     background: url(../img/search.png) no-repeat 200px center;
 }
 
-.tag-management-top,.user-management-top{
-  background: white;
-  padding: 17px 50px;
-  display: flex;
-  position: relative;
-  justify-content: space-between;
+.tag-management-top,
+.user-management-top {
+    background: white;
+    padding: 17px 50px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
 }
-.tag-management-Wrap,user-management-Wrap{
-    background: whitesmoke;
+
+.tag-management-Wrap,
+user-management-Wrap {
     height: 100%;
     position: relative;
     overflow: auto;
 
 }
-.tagCata{
+
+.tagCata {
     line-height: 42px;
     text-indent: 10px;
     position: absolute;
@@ -774,105 +842,128 @@ a {
     position: absolute;
     z-index: 100;
 }
+
 /* .placeholderELe:active::after{
    transform:rotateZ(180deg);
    cursor: pointer;
  
 } */
-.tagCata li{
+.tagCata li {
     display: none;
-     width: 172px;
-     height: 40px;
-   
+    width: 172px;
+    height: 40px;
+
 }
-.tagCata li:nth-child(2){
+
+.tagCata li:nth-child(2) {
     border-top: 1px solid rgba(3, 7, 17, 0.08)
 }
+
 .tagCata li:not(.placeholderELe):not(.activeTag):hover,
-.limit li:not(.limitPlaceHolder):not(.activeTag):hover{
+.limit li:not(.limitPlaceHolder):not(.activeTag):hover {
     background: #f2f2f2;
 }
+
 /* .tagCata li:not(.activeTag):hover{
     background: #f2f2f2;
 } */
-.tagCata .placeholderELe{
+.tagCata .placeholderELe {
     display: block;
     position: relative;
 }
-.tagCata .placeholderELe::after{
+
+.tagCata .placeholderELe::after {
     content: '';
     position: absolute;
-    top:14px;
-    left:150px;
+    top: 14px;
+    left: 150px;
     width: 14px;
     height: 14px;
     background: white url(../img/down.png) no-repeat center center;
     /* transition: transform 0.5s; */
 }
-.tagCata .activeTag,.limit .activeTag{
-     background:  rgba(35, 107, 228, 1);
-     color: white;
+
+.tagCata .activeTag,
+.limit .activeTag {
+    background: rgba(35, 107, 228, 1);
+    color: white;
 
 }
-.tagNav{
+
+.tagNav {
     margin-left: 55px;
     color: black;
 }
-.colorBlue{
+
+.colorBlue {
     color: #4994FF
 }
-/* /* 表格开始 */ 
-.tag-management-table,.user-management-table{
+
+/* /* 表格开始 */
+.tag-management-table,
+.user-management-table {
     height: calc(100% - 96px);
     margin: 20px 50px 0 50px;
     height: -webkit-calc(100% - 96px);
     background: white;
-	overflow: auto;
+    overflow: auto;
 }
-.tag-management-table table,.user-management-table table{
-    width: 100%;  
- 
+
+.tag-management-table table,
+.user-management-table table {
+    width: 100%;
+
 
 }
+
 .tag-management-table th,
 .tag-management-table td,
 .user-management-table th,
-.user-management-table td
-{
+.user-management-table td {
     text-align: left;
     text-indent: 40px;
 }
+
 .tag-management-table table thead,
-.user-management-table table thead{
-    background:#e6e6e6;;
+.user-management-table table thead {
+    background: #e6e6e6;
+    ;
     border: 1px solid #e2e2e2;
 }
+
 .tag-management-table table th,
-.user-management-table table th{
+.user-management-table table th {
     padding: 14px;
 }
+
 .tag-management-table table tbody tr,
-.user-management-table table tbody tr{
+.user-management-table table tbody tr {
     border-bottom: 1px solid #e2e2e2;
 }
+
 .tag-management-table table td,
-.user-management-table table td
-{
+.user-management-table table td {
     padding: 20px 12px;
     border-bottom: 1px solid #e2e2e2;
-    
+
 }
-.tagEdit,.tagDelete,.userEdit,.userDelete{
+
+.tagEdit,
+.tagDelete,
+.userEdit,
+.userDelete {
     color: #4994FF;
     margin-right: 15px;
     cursor: pointer;
 }
-.tagName{
+
+.tagName {
     cursor: pointer;
     color: #4994FF;
 }
 
-.tag-management-bottom,.user-management-bottom{
+.tag-management-bottom,
+.user-management-bottom {
     text-align: center;
     margin-top: 50px;
     color: #999;
@@ -882,31 +973,38 @@ a {
     position: absolute;
     transform: translateX(-50%);
 }
-.inputTagWrap{
+
+.inputTagWrap {
     padding: 40px 0px
 }
-.inputTag{
+
+.inputTag {
     width: 250px;
     height: 40px;
     text-indent: 20px;
 }
-.tagBack{
+
+.tagBack {
     cursor: pointer;
 }
-#paper{
+
+#paper {
     position: absolute;
-    bottom:30px;
+    bottom: 30px;
     right: 30px;
 }
+
 /* 左标签添加小手 */
-.container-aside-nav-item{
+.container-aside-nav-item {
     cursor: pointer;
 }
+
 /* 添加用户管理 */
-.userManage-nav{
+.userManage-nav {
     position: relative;
     /* height: 60px; */
 }
+
 /* .userManage-nav::after{
     content: '';
     width: 0;
@@ -920,31 +1018,35 @@ a {
 
 } */
 /* 添加账号弹出层 */
-#userPop{
-    background: white;
+#userPop {
     width: 600px;
     height: 320px;
     padding: 20px 30px;
     box-sizing: border-box;
     position: relative;
 }
-#userPop input{
+
+#userPop input {
     text-indent: 15px;
     width: 230px;
     height: 40px;
     border: 1px solid rgba(3, 7, 17, 0.08);
-   
+
 }
-#userPop .passShow{
+
+#userPop .passShow {
     display: block;
 }
-#userPop .passHide{
+
+#userPop .passHide {
     display: none;
 }
-#userPop form>div{
+
+#userPop form>div {
     margin-bottom: 20px;
 }
-#userPop .limit{
+
+#userPop .limit {
     display: inline-block;
     line-height: 42px;
     text-indent: 10px;
@@ -956,116 +1058,136 @@ a {
     position: absolute;
     z-index: 100;
 }
-#userPop .limit li{
+
+#userPop .limit li {
     display: none;
     width: 230px;
     height: 40px;
-   
+
 
 }
-#userPop .limit li:nth-child(2){
+
+#userPop .limit li:nth-child(2) {
     border-top: 1px solid rgba(3, 7, 17, 0.08);
 }
-#userPop .limit .limitPlaceHolder{
+
+#userPop .limit .limitPlaceHolder {
     display: block;
-    
+
 }
-#userPop .limit .limitPlaceHolder::after{
+
+#userPop .limit .limitPlaceHolder::after {
     content: '';
     position: absolute;
-    top:14px;
-    left:205px;
+    top: 14px;
+    left: 205px;
     width: 14px;
     height: 14px;
     background: white url(../img/down.png) no-repeat center center;
 
 }
 
-#userPop form>div:nth-last-child(2){
+#userPop form>div:nth-last-child(2) {
     height: 40px;
     /* overflow: hidden; */
     position: relative;
 }
-#userPop div:nth-last-child(2) label{
-    margin-left:-26px;
+
+#userPop div:nth-last-child(2) label {
+    margin-left: -26px;
 }
-#uploadUserImg{
-position: absolute;
-/* float: right; */
-top: 18px;
-left: 358px;
+
+#uploadUserImg {
+    position: absolute;
+    /* float: right; */
+    top: 18px;
+    left: 358px;
 }
-.upload-userImg-box{
+
+.upload-userImg-box {
     position: relative;
 }
-.upload-userImg-box img{
-   width: 100%;
-   height: 100%;
-   position: absolute;
-   top:0;
-   left:0;
+
+.upload-userImg-box img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
-#userPop label{
+
+#userPop label {
     margin-right: 20px;
 }
 
 
-.colorRed{
+.colorRed {
     color: red;
     position: absolute;
     left: 0px;
     bottom: -23px;
 
 }
-#userPop  form div:nth-last-child(2) .star{
-     position: absolute;
-     left: 295px;
+
+#userPop form div:nth-last-child(2) .star {
+    position: absolute;
+    left: 295px;
 }
-#uploadUserImg .imgShow{
+
+#uploadUserImg .imgShow {
     display: block;
 }
-#uploadUserImg .imgHide{
+
+#uploadUserImg .imgHide {
     display: none;
 }
-.imgBox{
+
+.imgBox {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
 }
-.imgBox img{
+
+.imgBox img {
     width: 100%;
     height: 100%;
 }
-.imgBox .deleteFile{
+
+.imgBox .deleteFile {
     right: -8px;
     top: -9px;
     position: absolute;
 }
-.userManage-menu li{
+
+.userManage-menu li {
     padding: 15px 36px 0 36px;
 }
-.userManage-menu li.activeMenu{
+
+.userManage-menu li.activeMenu {
     color: #1e9fff;
 }
-  
+
 .formItem .bgGray {
     background: #c3bdbd;
     /* cursor: default; */
 }
+
 /* 多媒体适配 */
 
 @media (max-width: 1366px) {
-    .container-content-wrap{
-        padding:   30px 0px 0px 30px;
+    .container-content-wrap {
+        padding: 30px 0px 0px 30px;
     }
-    .container-content-item{
-        margin-right:15px;              
+
+    .container-content-item {
+        margin-right: 15px;
     }
-    
+
 }
-.user-management-Wrap{
-	height: 100%;
-	overflow: auto;
+
+.user-management-Wrap {
+    height: 100%;
+    overflow: auto;
 }

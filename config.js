@@ -6,7 +6,7 @@ var $IF = {
         host: '192.168.11.100',
         // host: 'localhost',
         user: 'root',
-        password: 'introcks1234',
+        password: 'intellif.com',
         database: 'intellif_productlab'
     }
 }

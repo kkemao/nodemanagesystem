@@ -265,6 +265,7 @@
         </div>
     </div>
     <script src="./js/jquery.js"></script>
+    <script src="./js/jquery.watermark.js"></script>
     <script src="./js/jquery.md5.js "></script>
     <script src="./js/layui/layui.js "></script>
     <script src="./js/layui/layui.all.js "></script>
@@ -276,14 +277,15 @@
             init();
             $('#logOut').on('click', function () {
                 layer.open({
-                    btnAlign: 'c'
-                    , title: '提示'
-                    , content: '确定退出登陆？'
-                    , yes: function () {
+                    btnAlign: 'c',
+                    title: '提示',
+                    content: '确定退出登陆？',
+                    yes: function () {
                         layer.closeAll();
                         localStorage.removeItem('token');
                         localStorage.removeItem('userinfo');
-                        window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));
+                        window.location.href = window.location.href.slice(0, window.location
+                            .href.lastIndexOf('/'));
                         // $IF['userInfo']=res.userinfo[0]
                     }
                 });
@@ -316,7 +318,8 @@
             // 修改密码
             $("#changePass").on("click", function () {
                 var userInfo = $IF.userInfo;
-                var content = `
+                var content =
+                    `
         <div id="userPop" class="formWrap">
             <form>
                       <div class="formItem">
@@ -348,15 +351,20 @@
             </form>
         </div>`;
                 layer.open({
-                    btn: ['确定', '取消']
-                    , btnAlign: 'c'
-                    , title: '修改密码'
-                    , area: ['640px', '490px']
-                    , content: content
-                    , yes: function () {
+                    btn: ['确定', '取消'],
+                    btnAlign: 'c',
+                    title: '修改密码',
+                    area: ['640px', '490px'],
+                    content: content,
+                    success: function (layero, index) {
+                        $(layero).watermark(JSON.parse(localStorage.getItem(
+                            'watermarkinfo')));
+                    },
+                    yes: function () {
                         if (!checkFormData()) {
                             if ($("#userPop").find('.formTip').length <= 0) {
-                                let $span = `<span class="colorRed formTip">请输入表格信息必选项</span>`
+                                let $span =
+                                    `<span class="colorRed formTip">请输入表格信息必选项</span>`
                                 $('#userPop').append($span);
                             }
                             // $IF.tips('请输入表格信息必选项', 'main', 1200, 'bottom', '');   
@@ -378,6 +386,7 @@
                 });
 
             })
+
             function changePass() {
                 if (!checkFormData()) {
                     if ($(".formWrap form").find('.formTip').length <= 0) {
@@ -426,9 +435,9 @@
                     success: function (res) {
                         if (res && res.data && res.errCode == 0) {
                             layer.open({
-                                btnAlign: 'c'
-                                , title: '修改密码'
-                                , content: res.data
+                                btnAlign: 'c',
+                                title: '修改密码',
+                                content: res.data
                             })
                         } else {
                             $IF.errCodefn(res);
@@ -441,6 +450,7 @@
                 })
                 // }
             }
+
             function checkFormData() {
                 var uploadFormFlag = true;
                 var neccesaray = $("#userPop .nece");
@@ -455,13 +465,20 @@
                 })
                 return uploadFormFlag;
             }
-            function init(){
-                var user=$(".user");
-                if($IF.userInfo.role_id>=3){
+
+            function init() {
+                var user = $(".user");
+                if ($IF.userInfo.role_id >= 3) {
                     $(".management").remove();
-                } 
+                }
             }
-            $('#videoDom').bind('contextmenu',function() { return false; });
+            $('#videoDom').bind('contextmenu', function () {
+                return false;
+            });
+
+            //添加水印
+
+            $('.main-container,.project-modal').watermark(JSON.parse(localStorage.getItem('watermarkinfo')));
         })
     </script>
 
