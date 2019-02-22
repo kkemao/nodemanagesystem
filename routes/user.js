@@ -80,6 +80,52 @@ var router = express.Router();
         }
     });
 
+    // 超级管理员通过高级管理修改密码
+    router.post('/manage/changepw/:id', function(req, res, next){
+        var id = req.params.id;
+        var data = req.body;
+        var token = req.headers.authorization;
+        console.log(data);
+        var sql = `select t.role_id from t_user_info t where login in (select login from t_token_info where t_token_info.token = '${token}');`;
+        console.log('修改sql1', sql);
+        db.do(sql, function(err, rows){
+            if(rows && rows[0].role_id && rows[0].role_id == 1){
+                if(data && data.account && data.password){
+                    let sql = `select count(*) as c from t_user_info u 
+                            where u.id = ${id} and u.login = '${data.account}'`;
+                                    console.log('修改sql2', sql);
+                    db.doPromise(sql)
+                        .then(function(rows){
+                            if(rows.length > 0 && rows[0]['c'] && rows[0]['c'] > 0){
+                                let sql = `update t_user_info t set
+                                t.password = '${data.password}'
+                                where t.id = ${id} and t.login = '${data.account}' and t.role_id > 1`;
+                                console.log('zkf-sql', sql);
+                                db.do(sql, function(err, rows){
+                                    console.log('zkf-rows', rows);
+                                    if(rows && rows.affectedRows > 0){
+                                        res.send({errCode: 0, data: '修改成功', value: rows});
+                                        delToken(id);
+                                    }else{
+                                        res.send({errCode: 1001, data: '修改失败，请确认当前操作用户的权限以及被修改用户的权限'});
+                                    }
+                                });
+                            }else{
+                                res.send({errCode: 1001, data: '无法根据条件查询到所要修改的用户', value: rows})
+                            }
+                        },function (err){
+                            res.send({errCode: 0, data: '当前密码输入不正确', value: rows})
+                        });
+                }else{
+                    res.send({errCode: 1001, data: '缺少id或者account参数'});
+                }
+            }else{
+                res.send({errCode: 1002, data: '您没有修改权限。'});
+            }
+        });
+    });
+
+
     // 删除用户
     router.delete('/delete/:id', function(req, res, next){
         var id = req.params.id;

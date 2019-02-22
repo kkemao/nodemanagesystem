@@ -3,10 +3,32 @@
      * @author  海角在眼前
      */
 (function ($) {
+  var _options;
+  var historyDom = [];
   var watermark = function (self) {
     this.elem = self;
+    historyDom.push (self);
   };
-
+  window.addEventListener ('resize', () => {
+    //滚轮缩放浏览器时  更新水印
+    setTimeout (function () {
+      for (let i = 0; i < historyDom.length; i++) {
+        let $item = $ (historyDom[i]);
+        if ($item.length > 0) {
+          $item.each (function (index, e) {
+            let $e = $ (e);
+            this.elem = $e[0];
+            watermark.prototype.init (_options);
+          });
+        } else {
+          historyDom[i] = null;
+        }
+      }
+      historyDom = historyDom.filter ((el, index, arr) => {
+        return el !== null;
+      });
+    }, 500);
+  });
   watermark.prototype = {
     defaults: {
       texts: ['此处水印文字'],
@@ -32,7 +54,7 @@
 
       this.__calcTextSize ($body);
       var repeatTimes = Math.ceil (
-        screen.width / settings.txts.length / settings.width
+        document.body.offsetWidth * 2 / settings.txts.length / settings.width
       );
       settings.canvasWidth = settings.canvasWidth * repeatTimes;
       var extTxts = [];
@@ -151,6 +173,7 @@
   };
 
   $.fn.watermark = function (options) {
+    _options = options;
     new watermark (this).init (options);
   };
 }) (jQuery);

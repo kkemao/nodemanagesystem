@@ -790,6 +790,7 @@ a {
 }
 
 .userEdit.bgGray,
+.userUpdatePassword.bgGray,
 .userDelete.bgGray {
     /* background: #c3bdbd; */
     cursor: not-allowed;
@@ -948,9 +949,11 @@ user-management-Wrap {
 
 }
 
+
 .tagEdit,
 .tagDelete,
 .userEdit,
+.userUpdatePassword,
 .userDelete {
     color: #4994FF;
     margin-right: 15px;
@@ -1032,6 +1035,11 @@ user-management-Wrap {
     height: 40px;
     border: 1px solid rgba(3, 7, 17, 0.08);
 
+}
+
+#userPop .error-tip {
+    color: red;
+    display: none;
 }
 
 #userPop .passShow {
