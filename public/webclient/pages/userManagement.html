@@ -1,693 +1,748 @@
 <body>
-    <div class="contentWrap-item" data-type="userManagement">
-        <div class="user-management-Wrap">
-            <div class="user-management-top">
-                <input type="text" value="" id="userSearch" placeholder="搜索用户">
-                <button class="btn" id="addUser">添加账户</button>
-            </div>
-            <div class="user-management-table">
-                <table class="">
-                    <thead>
-                        <th>姓名</th>
-                        <th>账户</th>
-                        <th>账号权限</th>
-                        <th>创建时间</th>
-                        <th>操作</th>
-                    </thead>
-                    <tbody class="usersInfo">
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="user-management-bottom" style="display: none;">暂无数据</div>
+  <div class="contentWrap-item" data-type="userManagement">
+    <div class="user-management-Wrap">
+      <div class="user-management-top">
+        <input type="text" value="" id="userSearch" placeholder="搜索用户" />
+        <button class="btn" id="addUser">添加账户</button>
+      </div>
+      <div class="user-management-table">
+        <table class="">
+          <thead>
+            <th>姓名</th>
+            <th>账户</th>
+            <th>账号权限</th>
+            <th>创建时间</th>
+            <th>操作</th>
+          </thead>
+          <tbody class="usersInfo"></tbody>
+        </table>
+      </div>
     </div>
+    <div class="user-management-bottom" style="display: none;">暂无数据</div>
+  </div>
 </body>
 <script>
-    $(function () {
-        var fileObj = {};
-        let state = null;
-        $IF.getUserInfo();
-        initUserInfo();
-        let userArr = [];
-        let userId = $IF.userInfo.role_id;
-        $('#addUser').on('click', function () {
-            initAccountPop();
-            state = '';
-        })
-        getRole();
+  $(function() {
+    var fileObj = {};
+    let state = null;
+    $IF.getUserInfo();
+    initUserInfo();
+    let userArr = [];
+    let userId = $IF.userInfo.role_id;
+    $("#addUser").on("click", function() {
+      initAccountPop();
+      state = "";
+    });
+    getRole();
 
-        function getRole() {
-            $.ajax({
-                type: "get",
-                url: $IF.apiServer + "/user/role/all",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                },
-                success: function (res) {
-                    if (res && res.data && res.errCode == 0) {
-                        $IF.roleArr = res.data
-                        $IF.roleObj = {};
-                        $IF.roleArr.forEach(function (d, i) {
-                            $IF.roleObj[d.id] = d;
-                        });
-                    } else {
-                        $IF.roleArr = [];
-                    }
-                }
+    function getRole() {
+      $.ajax({
+        type: "get",
+        url: $IF.apiServer + "/user/role/all",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+        },
+        success: function(res) {
+          if (res && res.data && res.errCode == 0) {
+            $IF.roleArr = res.data;
+            $IF.roleObj = {};
+            $IF.roleArr.forEach(function(d, i) {
+              $IF.roleObj[d.id] = d;
             });
+          } else {
+            $IF.roleArr = [];
+          }
+        }
+      });
+    }
+
+    let inputLock = false;
+    // $('body').on('click', '#userPop .limit', function (e) {
+    //     let $target = $(e.target);
+    //     if ($target.hasClass('limitPlaceHolder')) {
+    //         $target.siblings().slideToggle('fast');
+    //     } else {
+    //         let $placeHolder = $target.siblings('.limitPlaceHolder');
+    //         // if ($(e.target).data('type') == $placeHolder.data('type')) return;
+    //         $placeHolder.html($target.text());
+    //         // let productCata = $target.data('type');
+    //         // $placeHolder.data('type', productCata);
+    //         $target.addClass('necessary');
+    //         $target.addClass('activeTag');
+    //         $target.siblings().removeClass('activeTag');
+    //         $(this).find('li:not(.limitPlaceHolder)').hide();
+    //         // $('.tagCata li:not(.limitPlaceHolder)').hide();
+    //     }
+
+    // }).on('click', '.uploadUserImgBtn', function () {
+    //     if (inputLock) {
+    //         tips('文件正在上传中，请稍后','main',1200,'bottom','')
+    //         return;
+    //     }
+    //     $('#uploadUser').click();
+
+    // }).on("change", "#uploadUser", uploadImg);
+    $(".usersInfo")
+      .on("click", "tr .userEdit", function(e) {
+        if ($(this).hasClass("bgGray")) {
+          return;
+        }
+        state = "edit";
+        let userId = $(e.target)
+          .closest("tr")
+          .data("userid");
+        // console.log(userId);
+        initAccountPop(userId);
+      })
+      .on("click", ".userDelete", function(e) {
+        if ($(this).hasClass("bgGray")) {
+          return;
+        }
+        layerPop({
+          btn: ["确定", "取消"],
+          btnAlign: "c",
+          title: "提示",
+          content: "确定删除?",
+          callBack: deleteUser.bind(this)
+          //编辑账户
+        });
+      })
+      .on("click", ".userUpdatePassword", function(e) {
+        if ($(this).hasClass("bgGray")) {
+          return;
         }
 
-        let inputLock = false;
-        // $('body').on('click', '#userPop .limit', function (e) {
-        //     let $target = $(e.target);
-        //     if ($target.hasClass('limitPlaceHolder')) {
-        //         $target.siblings().slideToggle('fast');
-        //     } else {
-        //         let $placeHolder = $target.siblings('.limitPlaceHolder');
-        //         // if ($(e.target).data('type') == $placeHolder.data('type')) return;
-        //         $placeHolder.html($target.text());
-        //         // let productCata = $target.data('type');
-        //         // $placeHolder.data('type', productCata);
-        //         $target.addClass('necessary');
-        //         $target.addClass('activeTag');
-        //         $target.siblings().removeClass('activeTag');
-        //         $(this).find('li:not(.limitPlaceHolder)').hide();
-        //         // $('.tagCata li:not(.limitPlaceHolder)').hide();
-        //     }
-
-        // }).on('click', '.uploadUserImgBtn', function () {
-        //     if (inputLock) {
-        //         tips('文件正在上传中，请稍后','main',1200,'bottom','')
-        //         return;
-        //     }
-        //     $('#uploadUser').click();
-
-        // }).on("change", "#uploadUser", uploadImg);
-        $('.usersInfo').on('click', 'tr .userEdit', function (e) {
-            if ($(this).hasClass('bgGray')) {
-                return;
-            }
-            state = 'edit';
-            let userId = $(e.target).closest('tr').data('userid');
-            // console.log(userId);
-            initAccountPop(userId);
-        }).on('click', ".userDelete", function (e) {
-            if ($(this).hasClass('bgGray')) {
-                return;
-            }
-            layerPop({
-                btn: ['确定', '取消'],
-                btnAlign: 'c',
-                title: '提示',
-                content: "确定删除?",
-                callBack: deleteUser.bind(this)
-                //编辑账户
-            });
-
-        }).on('click', ".userUpdatePassword", function (e) {
-            if ($(this).hasClass('bgGray')) {
-                return;
-            }
+        let $tr = $(this).closest("tr");
+        var userInfo = {
+          id: $tr.attr("data-userid"),
+          user_name: $tr.attr("username"),
+          login: $tr.attr("login")
+        };
+        var content = `
+          <div id="userPop" class="formWrap">
+              <div class="password-tip"></div>
+              <form>
+                        <div class="formItem">
+                      <label for="addUser">姓名:</label>
+                      <input type="text" readonly id="addUser"  class="bgGray" value=${
+                        userInfo ? userInfo.user_name : ""
+                      } name="username" autocomplete="new-username" placeholder="请输入姓名">
+                      <!-- <span class="star">*</span> -->
+                  </div>
+                  <div class="formItem">
+                      <label for="account">账号:</label>
+                      <input type="text" readonly  class="bgGray" value=${
+                        userInfo ? userInfo.login : ""
+                      } id="account"  name="account"
+                          autocomplete="off" placeholder="请输入账号">
+                      <!-- <span class="star">*</span> -->
+                  </div>
+                  <div class="formItem">
+                      <label style="    margin-left: -3px;" for="pass">新密码:</label>
+                      <input type="password" value="" name="password" class="nece" id="pass" autocomplete="new-password"
+                          placeholder="请输入当前密码">
+                      <span class="star">*</span>
+                  </div>
 
 
+                  <div class="formItem">
+                      <label style="    margin-left: -16px;" for="confirmPass">确认密码:</label>
+                      <input type="password" value="" name="confirmPass" class="nece" id="confirmPass" autocomplete="new-password"
+                          placeholder="请输入确认密码">
+                      <span style="left:292px" class="star">*</span>
+                  </div>
 
-            let $tr = $(this).closest('tr');
-            var userInfo = {
-                id: $tr.attr('data-userid'),
-                user_name: $tr.attr('username'),
-                login: $tr.attr('login'),
-            }
-            var content =
-                `
-        <div id="userPop" class="formWrap">
-            <form>
-                      <div class="formItem">
-                    <label for="addUser">姓名:</label>
-                    <input type="text" readonly id="addUser"  class="bgGray" value=${ userInfo ? userInfo.user_name : ''} name="username" autocomplete="new-username" placeholder="请输入姓名">
-                    <!-- <span class="star">*</span> -->
-                </div>
-                <div class="formItem">
-                    <label for="account">账号:</label>
-                    <input type="text" readonly  class="bgGray" value=${ userInfo ? userInfo.login : ''} id="account"  name="account"
-                        autocomplete="off" placeholder="请输入账号">
-                    <!-- <span class="star">*</span> -->
-                </div>
-                <div class="formItem">
-                    <label style="    margin-left: -3px;" for="pass">新密码:</label>
-                    <input type="password" value="" name="password" class="nece" id="pass" autocomplete="new-password"
-                        placeholder="请输入当前密码">
-                    <span class="star">*</span>
-                </div>
-                 
-               
-                <div class="formItem">
-                    <label style="    margin-left: -27px;" for="confirmPass">确认密码:</label>
-                    <input type="password" value="" name="confirmPass" class="nece" id="confirmPass" autocomplete="new-password"
-                        placeholder="请输入确认密码">
-                    <span style="left:292px" class="star">*</span>
-                </div>
-               
-                <div class="error-tip"></div>
-           
-            </form>
-        </div>`;
+                  <div class="error-tip"></div>
+
+              </form>
+          </div>`;
+        layer.open({
+          btn: ["确定", "取消"],
+          btnAlign: "c",
+          title: "修改密码",
+          area: ["640px", "460px"],
+          content: content,
+          success: function(layero, index) {
+            $(layero).watermark(
+              JSON.parse(localStorage.getItem("watermarkinfo"))
+            );
+            //密码注册
+            window.validPassword.register(layero.find(".password-tip"), 1);
+          },
+          yes: function(index, $layero) {
+            // layer.closeAll();
+            // localStorage.removeItem('token');
+            // localStorage.removeItem('userinfo');
+            // window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));
+            // $IF['userInfo']=res.userinfo[0]；
+            changePass(userInfo, index, $layero);
+          }
+        });
+      });
+
+    function changePass(userInfo, index, $layero) {
+      if (checkFormPassword(index, $layero)) {
+        $("#userPop .error-tip")
+          .text("")
+          .hide();
+      } else {
+        return;
+      }
+      let forms = $(".formWrap  form");
+      let pass = $(".formWrap form")
+        .find('input[name="password"]')
+        .val();
+
+      let formObj = {};
+      let md5Pass = $.md5(pass);
+      formObj.password = md5Pass;
+      formObj.account = userInfo.login;
+
+      let userid = userInfo.id;
+      $.ajax({
+        type: "post",
+        url: $IF.apiServer + "/user/manage/changepw/" + userid,
+        processData: false,
+        contentType: "application/json",
+        data: JSON.stringify(formObj),
+        dataType: "json",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+        },
+        success: function(res) {
+          if (res && res.data && res.errCode == 0) {
             layer.open({
-                btn: ['确定', '取消'],
-                btnAlign: 'c',
-                title: '修改密码',
-                area: ['640px', '460px'],
-                content: content,
-                success: function (layero, index) {
-                    $(layero).watermark(JSON.parse(localStorage.getItem(
-                        'watermarkinfo')));
-                },
-                yes: function () {
-
-                    // layer.closeAll();
-                    // localStorage.removeItem('token');
-                    // localStorage.removeItem('userinfo');
-                    // window.location.href = window.location.href.slice(0, window.location.href.lastIndexOf('/'));
-                    // $IF['userInfo']=res.userinfo[0]；
-                    changePass(userInfo);
-
-                }
+              btnAlign: "c",
+              title: "修改密码",
+              content: res.data
             });
+          } else {
+            $IF.errCodefn(res);
+          }
+        },
+        error: function(err) {
+          $IF.errCodefn(err);
+        }
+      });
+      // }
+    }
 
+    function checkFormPassword(index, $layero) {
+      var uploadFormFlag = true;
+      var neccesaray = $("#userPop .nece");
+      neccesaray.each(function(neccesarayDom) {
+        if (this.tagName == "INPUT") {
+          if (!$(this).val()) uploadFormFlag = false;
+        } else {
+          if (!$(this).html()) uploadFormFlag = false;
+        }
+      });
+      if (!uploadFormFlag) {
+        $("#userPop .error-tip")
+          .text("请输入表单必填元素")
+          .show();
+      } else {
+        if (
+          $("#userPop .nece#pass").val() !==
+          $("#userPop .nece#confirmPass").val()
+        ) {
+          $("#userPop .error-tip")
+            .text("两次密码不一样")
+            .show();
+          uploadFormFlag = false;
+        }
+      }
 
+      let message = window.validPassword.valid($layero.find("#pass"), 1);
+      if (message !== true) {
+        $("#userPop .error-tip")
+          .text(message)
+          .show();
+        uploadFormFlag = false;
+      }
+      return uploadFormFlag;
+    }
+    $("#userSearch").keydown(function(E) {
+      var evt = window.event || e;
+      if (evt.keyCode == 13) {
+        //回车事件
+        let searchValue = $(this).val();
+        searchUser(searchValue);
+      }
+    });
 
+    function uploadImg() {
+      inputLock = true;
+      const files = this.files;
+      const file = files[0];
+      $(this).val("");
+      var formData = new FormData();
+      formData.append("file", file);
+      let $imgBox = $("#uploadUserImg .imgBox");
+      // $imgBox.show();
+      // formData.append("fileType", type);
+      $.ajax({
+        type: "POST",
+        url: $IF.apiServer + "/upload",
+        data: formData,
+        processData: false,
+        contentType: false,
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+        },
+        success: function(res) {
+          inputLock = false;
+          if (res && res.data && res.errCode == 0) {
+            let url = res.data;
+            fileObj.fileUrl = url;
+            setData($imgBox, url);
+            $imgBox.addClass("imgShow").removeClass("imgHide");
+            let $span = $(`<span class="colorRed">上传成功</span>`);
+            $imgBox.append($span);
+          } else {
+            $IF.errCodefn(res);
+          }
+        },
+        error: function(err) {
+          inputLock = false;
+        }
+      });
+    }
+
+    function initUserInfo() {
+      $.ajax({
+        type: "get",
+        url: $IF.apiServer + "/user",
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+        },
+        success: function(res) {
+          if (res && res.data && res.errCode == 0) {
+            let users = res.data;
+            userArr = users;
+            appendUserEle(users);
+          } else {
+            $IF.errCodefn(res);
+          }
+        }
+      });
+    }
+
+    function appendUserEle(users) {
+      let usersInfo = $(".usersInfo");
+      usersInfo.html("");
+      users.forEach(function(user, key) {
+        // console.log(user);
+        //  data-roleid=${user.role_id}
+        // ${user.role_id<$IF.usersInfo.role_id?'bgGray':''}"
+
+        let $tr = `<tr username=${user.user_name} login="${
+          user.login
+        }"  data-userid=${user.id} data-roleid=${user.role_id} >
+                         <td>${user.user_name}</td>
+                         <td>${user.login}</td>
+                         <td>${user.role_name}</td>
+                         <td>${new Date(user.create_time).format(
+                           "yyyy-MM-dd hh:mm:ss"
+                         )}</td>
+                         <td>
+                             <span class="userEdit ${
+                               user.role_id <= $IF.userInfo.role_id &&
+                               user.id != $IF.userInfo.id
+                                 ? "bgGray"
+                                 : ""
+                             }">编辑</span>
+
+                             <span class="userUpdatePassword ${
+                               $IF.userInfo.role_id > 1 ||
+                               ($IF.userInfo.role_id == 1 &&
+                                 $IF.userInfo.role_id == user.role_id)
+                                 ? "bgGray"
+                                 : ""
+                             }">修改密码</span>
+                             <span class="userDelete ${
+                               $IF.userInfo.role_id > 1 ||
+                               ($IF.userInfo.role_id == 1 &&
+                                 $IF.userInfo.role_id == user.role_id)
+                                 ? "bgGray"
+                                 : ""
+                             }">删除</span>
+                         </td>
+                     </tr>`;
+
+        usersInfo.append($tr);
+      });
+    }
+
+    function initAccountPop(userId) {
+      // console.log(state);
+      if (state == "edit" && userId) {
+        $.ajax({
+          type: "get",
+          url: $IF.apiServer + "/user/" + userId,
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(
+              "Authorization",
+              localStorage.getItem("token")
+            );
+          },
+          success: function(res) {
+            if (res && res.data && res.errCode == 0) {
+              // console.log(res.data[0]);
+              setUserPop(res.data[0]);
+              console.log(1);
+            } else {
+              $IF.errCodefn(res);
+            }
+          }
         });
+      } else {
+        setUserPop();
+      }
+    }
 
-        function changePass(userInfo) {
-            if (checkFormPassword()) {
-                $("#userPop .error-tip").text('').hide();
-            } else {
-
-                return;
-            }
-            let forms = $('.formWrap  form');
-            let pass = $('.formWrap form').find('input[name="password"]').val();
-
-            let formObj = {}
-            let md5Pass = $.md5(pass);
-            formObj.password = md5Pass;
-            formObj.account = userInfo.login;
-
-
-            let userid = userInfo.id;
-            $.ajax({
-                type: "post",
-                url: $IF.apiServer + '/user/manage/changepw/' + userid,
-                processData: false,
-                contentType: "application/json",
-                data: JSON.stringify(formObj),
-                dataType: 'json',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                },
-                success: function (res) {
-
-                    if (res && res.data && res.errCode == 0) {
-                        layer.open({
-                            btnAlign: 'c',
-                            title: '修改密码',
-                            content: res.data
-                        })
-                    } else {
-                        $IF.errCodefn(res);
-                    }
-
-                },
-                error: function (err) {
-                    $IF.errCodefn(err);
-                }
-            })
-            // }
+    function deleteUser() {
+      let dataId = $(this)
+        .closest("tr")
+        .data("userid");
+      $.ajax({
+        type: "delete",
+        url: $IF.apiServer + "/user/delete/" + dataId,
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+        },
+        success: function(res) {
+          if (res && res.data && res.errCode == 0) {
+            layer.open({
+              btnAlign: "c",
+              title: "提示",
+              content: "删除成功",
+              yes: function() {
+                layer.closeAll();
+                $(".usersInfo").html("");
+                initUserInfo();
+              }
+            });
+          } else {
+            $IF.errCodefn(res);
+          }
         }
-
-        function checkFormPassword() {
-
-            var uploadFormFlag = true;
-            var neccesaray = $("#userPop .nece");
-            neccesaray.each(function (neccesarayDom) {
-                if (this.tagName == 'INPUT') {
-                    if (!$(this).val()) uploadFormFlag = false;
-                } else {
-                    if (!$(this).html()) uploadFormFlag = false;
-                }
-
-
-            })
-            if (!uploadFormFlag) {
-                $("#userPop .error-tip").text('请输入表单必填元素').show();
-            } else {
-
-                if ($("#userPop .nece#pass").val() !== $("#userPop .nece#confirmPass").val()) {
-                    $("#userPop .error-tip").text('两次密码不一样').show();
-                    uploadFormFlag = false;
-                }
-            }
-            return uploadFormFlag;
-        }
-        $("#userSearch").keydown(function (E) {
-            var evt = window.event || e;
-            if (evt.keyCode == 13) {
-                //回车事件
-                let searchValue = $(this).val();
-                searchUser(searchValue);
-            }
+      });
+    }
+    //编辑或者添加用户
+    function searchUser(searchValue) {
+      let arr = [];
+      if (searchValue) {
+        userArr.forEach(function(item, key) {
+          if (
+            item.user_name.indexOf(searchValue) !== -1 ||
+            item.login.indexOf(searchValue) !== -1 ||
+            item.role_name.indexOf(searchValue) !== -1
+          ) {
+            arr.push(item);
+          }
         });
+      }
+      if (searchValue === "") arr = userArr;
+      if (arr.length == 0) {
+        $(".user-management-bottom").show();
+      } else {
+        $(".user-management-bottom").hide();
+      }
+      appendUserEle(arr);
+    }
 
-        function uploadImg() {
-            inputLock = true;
-            const files = this.files;
-            const file = files[0];
-            $(this).val('');
-            var formData = new FormData();
-            formData.append("file", file);
-            let $imgBox = $('#uploadUserImg .imgBox');
-            // $imgBox.show();
-            // formData.append("fileType", type);
-            $.ajax({
-                type: "POST",
-                url: $IF.apiServer + "/upload",
-                data: formData,
-                processData: false,
-                contentType: false,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                },
-                success: function (res) {
-                    inputLock = false;
-                    if (res && res.data && res.errCode == 0) {
-                        let url = res.data;
-                        fileObj.fileUrl = url;
-                        setData($imgBox, url);
-                        $imgBox.addClass('imgShow').removeClass('imgHide');
-                        let $span = $(`<span class="colorRed">上传成功</span>`);
-                        $imgBox.append($span);
+    function setUserPop(userObj) {
+      let addAccountEle = `<div id="userPop" data-userid="${
+        userObj ? userObj.id : ""
+      }">
+        <div class="password-tip"></div>
+      <form>
+      <div>
+          <label for="addUser">姓名</label>
+          <input type="text" value="${
+            userObj ? userObj.user_name : ""
+          }" id="addUser" class="necessary"  name="username" autocomplete="new-username"  placeholder="请输入姓名">
+          <span class="star">*</span>
+      </div>
+      <div>
+          <label for="account">账号</label>
+          <input type="text" value="${
+            userObj ? userObj.login : ""
+          }" id="account" class="necessary" name="account" autocomplete="off" placeholder="请输入账号" >
+          <span class="star">*</span>
+      </div>
+      <div class="${userObj ? "passHide" : "passShow"} userManager-pass">
+          <label for="pass1">密码</label>
+          <input type="password" value="" name="password" class="necessary" id="pass" autocomplete="new-password" placeholder="请输入密码">
+          <span class="star">*</span>
+      </div>
 
-                    } else {
-                        $IF.errCodefn(res)
-                    }
+      <div>
+          <label style="margin-left:-26px" for="limit">账号权限</label>
+          <ul class="limit">
+          </ul>
+          <span class="star">*</span>
+      </div>
+      <div id="uploadUserImg" >
+           <div class="upload-userImg-box">
+                      <span class="upLoadImgIcon"></span>
+                      <p>将文件拖到此处，或
+                          <strong class="uploadUserImgBtn">点击上传</strong>
+                          <input id="uploadUser" type="file"  accept="image/*" style="display: none;">
+                      </p>
+          </div>
+          <div  class="${userObj ? "imgShow" : "imgHide"} imgBox" >
+             <img src="${userObj ? userObj.url : ""}"></img>
+             <span class="deleteFile"></span>
+          </div>
+      </div>
+      </form>
 
-                },
-                error: function (err) {
-                    inputLock = false;
+  </div>`;
+      let layOpt = {
+        btn: ["确定", "取消"],
+        btnAlign: "c",
+        title: "添加账号",
+        area: ["640px", "490px"],
+        content: addAccountEle,
+        callBack: addAccountfn,
+        success: function($layero, index) {
+          //密码注册
+          window.validPassword.register($layero.find(".password-tip"), 1);
+        }
+        //添加账户
+      };
+      layerPop(layOpt);
+      // console.log(userObj);
+      $("#userPop")
+        .on("click", ".limit", function(e) {
+          let $target = $(e.target);
+          if ($target.hasClass("limitPlaceHolder")) {
+            $target.siblings().slideToggle("fast");
+          } else {
+            let $placeHolder = $target.siblings(".limitPlaceHolder");
+            // if ($(e.target).data('type') == $placeHolder.data('type')) return;
+            $placeHolder.html($target.text());
+            // let productCata = $target.data('type');
+            // $placeHolder.data('type', productCata);
+            $target.addClass("necessary");
+            $target.addClass("activeTag");
+            $target.siblings().removeClass("activeTag");
+            $(this)
+              .find("li:not(.limitPlaceHolder)")
+              .hide();
+            // $('.tagCata li:not(.limitPlaceHolder)').hide();
+          }
+        })
+        .on("click", ".uploadUserImgBtn", function() {
+          if (inputLock) {
+            tips("文件正在上传中，请稍后", "main", 1200, "bottom", "");
+            return;
+          }
+          $("#uploadUser").click();
+        })
+        .on("change", "#uploadUser", uploadImg);
+
+      if (state == "edit" && userObj) {
+        let imgBox = $("#uploadUserImg").find(".imgBox");
+        layOpt.title = "编辑账号";
+        initAccountLimit(userObj.role_id);
+        if (userObj.url) {
+          imgBox.addClass("imgShow");
+          // console.log(imgBox);
+          setData(imgBox, userObj.url);
+        } else {
+          imgBox.removeClass("imgShow").addClass("imgHide");
+        }
+      } else {
+        initAccountLimit();
+      }
+      //用户权限初始化
+    }
+
+    function setData(ele, url) {
+      ele.find("img")[0].src = $IF.apiServer + url;
+      let $deleteFileBtn = ele.find(".deleteFile");
+      $deleteFileBtn.click(function() {
+        ele.removeClass("imgShow").addClass("imgHide");
+        ele.find(".colorRed").remove();
+      });
+    }
+
+    function addAccountfn(index, $layero) {
+      //验证表单输入是否完全
+      {
+        let $formTip = $("#userPop").find(".formTip");
+        if ($("#userPop").find(".formTip").length > 0) {
+          $formTip.remove();
+        }
+      }
+      if (!checkFormData()) {
+        if ($("#userPop").find(".formTip").length <= 0) {
+          let $span = `<span class="colorRed formTip">请输入表格信息必选项</span>`;
+          $("#userPop").append($span);
+        }
+        // $IF.tips('请输入表格信息必选项', 'main', 1200, 'bottom', '');
+        return false;
+      }
+
+      let message = window.validPassword.valid($layero.find("#pass"), 1);
+      if (message !== true) {
+        let $span = `<span class="colorRed formTip">${message}</span>`;
+        $("#userPop").append($span);
+        return false;
+      }
+      let forms = $("#userPop form");
+
+      let roleId = $("#userPop")
+        .find(".limit .activeTag")
+        .data("id");
+      let pass = $("#userPop")
+        .find('input[type="password"]')
+        .val();
+      let formData = new FormData(forms[0]);
+      let md5Pass = $.md5(pass);
+      formData.append("password", md5Pass);
+      formData.append("roleId", roleId);
+      if ($(".imgBox").hasClass("imgHide")) fileObj.fileUrl = "";
+      if (!fileObj.fileUrl) fileObj.fileUrl = "";
+      formData.append("fileUrl", fileObj.fileUrl);
+      let formObj = {};
+      for (var pair of formData.entries()) {
+        formObj[pair[0]] = pair[1];
+      }
+      if (state == "edit") {
+        let userid = $("#userPop").data("userid");
+        $.ajax({
+          type: "post",
+          url: $IF.apiServer + "/user/edit/" + userid,
+          processData: false,
+          contentType: "application/json",
+          data: JSON.stringify(formObj),
+          dataType: "json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(
+              "Authorization",
+              localStorage.getItem("token")
+            );
+          },
+          success: function(res) {
+            if (res && res.data && res.errCode == 0) {
+              layerPop({
+                content: "编辑成功",
+                callBack: function() {
+                  //初始化用户信息接口
+                  $(".usersInfo").html("");
+                  initUserInfo();
                 }
-            });
-        }
-
-        function initUserInfo() {
-
-            $.ajax({
-                type: "get",
-                url: $IF.apiServer + "/user",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                },
-                success: function (res) {
-                    if (res && res.data && res.errCode == 0) {
-                        let users = res.data;
-                        userArr = users;
-                        appendUserEle(users);
-                    } else {
-                        $IF.errCodefn(res);
-                    }
-                }
-            })
-
-        }
-
-        function appendUserEle(users) {
-            let usersInfo = $('.usersInfo');
-            usersInfo.html('');
-            users.forEach(function (user, key) {
-                // console.log(user);
-                //  data-roleid=${user.role_id}
-                // ${user.role_id<$IF.usersInfo.role_id?'bgGray':''}" 
-
-                let $tr =
-                    `<tr username=${user.user_name} login="${user.login}"  data-userid=${user.id} data-roleid=${user.role_id} >
-                       <td>${user.user_name}</td>
-                       <td>${user.login}</td>
-                       <td>${user.role_name}</td>
-                       <td>${new Date(user.create_time).format('yyyy-MM-dd hh:mm:ss')}</td>
-                       <td>
-                           <span class="userEdit ${(user.role_id <= $IF.userInfo.role_id)&&(user.id!=$IF.userInfo.id)? 'bgGray' : ''}">编辑</span>
-
-                           <span class="userUpdatePassword ${$IF.userInfo.role_id>1||($IF.userInfo.role_id==1&&($IF.userInfo.role_id==user.role_id))? 'bgGray' : ''}">修改密码</span>
-                           <span class="userDelete ${$IF.userInfo.role_id>1||($IF.userInfo.role_id==1&&($IF.userInfo.role_id==user.role_id))? 'bgGray' : ''}">删除</span>
-                       </td>    
-                   </tr>`
-
-                usersInfo.append($tr);
-            })
-        }
-
-        function initAccountPop(userId) {
-            // console.log(state);
-            if (state == "edit" && userId) {
-                $.ajax({
-                    type: "get",
-                    url: $IF.apiServer + "/user/" + userId,
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                    },
-                    success: function (res) {
-                        if (res && res.data && res.errCode == 0) {
-                            // console.log(res.data[0]);
-                            setUserPop(res.data[0]);
-                            console.log(1);
-                        } else {
-
-                            $IF.errCodefn(res);
-                        }
-
-                    }
-                })
+              });
             } else {
-                setUserPop();
+              $IF.errCodefn(res);
             }
-
-
-
-        }
-
-        function deleteUser() {
-            let dataId = $(this).closest('tr').data('userid');
-            $.ajax({
-                type: "delete",
-                url: $IF.apiServer + '/user/delete/' + dataId,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                },
-                success: function (res) {
-                    if (res && res.data && res.errCode == 0) {
-                        layer.open({
-                            btnAlign: 'c',
-                            title: '提示',
-                            content: '删除成功',
-                            yes: function () {
-                                layer.closeAll();
-                                $('.usersInfo').html('');
-                                initUserInfo();
-                            }
-                        });
-                    } else {
-                        $IF.errCodefn(res);
-                    }
-
+          },
+          error: function(err) {
+            $IF.errCodefn(err);
+          }
+        });
+      } else {
+        $.ajax({
+          type: "post",
+          url: $IF.apiServer + "/user/add",
+          processData: false,
+          contentType: "application/json",
+          data: JSON.stringify(formObj),
+          dataType: "json",
+          beforeSend: function(xhr) {
+            xhr.setRequestHeader(
+              "Authorization",
+              localStorage.getItem("token")
+            );
+          },
+          success: function(res) {
+            if (res && res.data && res.errCode == 0) {
+              console.log(res.data);
+              layerPop({
+                content: "添加成功",
+                callBack: function() {
+                  //初始化用户信息接口
+                  $(".usersInfo").html("");
+                  initUserInfo();
                 }
-            });
-
-        }
-        //编辑或者添加用户
-        function searchUser(searchValue) {
-            let arr = [];
-            if (searchValue) {
-                userArr.forEach(function (item, key) {
-                    if (item.user_name.indexOf(searchValue) !== -1 || item.login.indexOf(searchValue) !==
-                        -1 || item.role_name.indexOf(searchValue) !== -1) {
-                        arr.push(item);
-                    }
-
-                });
-            }
-            if (searchValue === "") arr = userArr;
-            if (arr.length == 0) {
-                $('.user-management-bottom').show();
+              });
             } else {
-                $('.user-management-bottom').hide();
+              $IF.errCodefn(res);
             }
-            appendUserEle(arr);
+          },
+          error: function(err) {
+            $IF.errCodefn(err);
+          }
+        });
+      }
+    }
+
+    function initAccountLimit(roleId) {
+      $IF.roleArr.forEach(function(item, key) {
+        let $limitPlaceHolder = null;
+
+        if (key == 0) {
+          if (roleId && roleId) {
+            $limitPlaceHolder = `<li class="limitPlaceHolder" data-id='${roleId}'>${$IF.roleObj &&
+              $IF.roleObj[roleId].role_name}</li>`;
+          } else {
+            $limitPlaceHolder = `<li class="limitPlaceHolder" data-id=''>请选择</li>`;
+          }
         }
+        console.log("xxq-------", $IF.userInfo.role_id);
+        $("#userPop")
+          .find(".limit")
+          .append($limitPlaceHolder);
+        if (item.id < $IF.userInfo.role_id) return;
+        let $li = `<li class='${
+          item.id == roleId ? "activeTag" : ""
+        }' data-id=${item.id}>${item.role_name}</li>`;
 
-        function setUserPop(userObj) {
+        $("#userPop")
+          .find(".limit")
+          .append($li);
+      });
+    }
 
-            let addAccountEle =
-                `<div id="userPop" data-userid="${userObj ? userObj.id : ''}">
-    <form>
-    <div>
-        <label for="addUser">姓名</label>
-        <input type="text" value="${userObj ? userObj.user_name : ''}" id="addUser" class="necessary"  name="username" autocomplete="new-username"  placeholder="请输入姓名">
-        <span class="star">*</span>
-    </div>
-    <div>
-        <label for="account">账号</label>
-        <input type="text" value="${userObj ? userObj.login : ''}" id="account" class="necessary" name="account" autocomplete="off" placeholder="请输入账号" >
-        <span class="star">*</span>
-    </div>
-    <div class="${userObj ? 'passHide' : 'passShow'}">
-        <label for="pass1">密码</label>
-        <input type="password" value="" name="password" class="necessary" id="pass" autocomplete="new-password" placeholder="请输入密码">
-        <span class="star">*</span>
-    </div>
-    <div>
-        <label for="limit">账号权限</label>
-        <ul class="limit">
-        </ul>
-        <span class="star">*</span>
-    </div>
-    <div id="uploadUserImg" >
-         <div class="upload-userImg-box">
-                    <span class="upLoadImgIcon"></span>
-                    <p>将文件拖到此处，或
-                        <strong class="uploadUserImgBtn">点击上传</strong>
-                        <input id="uploadUser" type="file"  accept="image/*" style="display: none;">
-                    </p>
-        </div>
-        <div  class="${userObj ? 'imgShow' : 'imgHide'} imgBox" >
-           <img src="${userObj ? userObj.url : ''}"></img>
-           <span class="deleteFile"></span>
-        </div>
-    </div>
-    </form>
-
-</div>`;
-            let layOpt = {
-                btn: ['确定', '取消'],
-                btnAlign: 'c',
-                title: '添加账号',
-                area: ['640px', '490px'],
-                content: addAccountEle,
-                callBack: addAccountfn
-                //添加账户
-            }
-            layerPop(layOpt);
-            // console.log(userObj);
-            $('#userPop').on('click', '.limit', function (e) {
-                let $target = $(e.target);
-                if ($target.hasClass('limitPlaceHolder')) {
-                    $target.siblings().slideToggle('fast');
-                } else {
-                    let $placeHolder = $target.siblings('.limitPlaceHolder');
-                    // if ($(e.target).data('type') == $placeHolder.data('type')) return;
-                    $placeHolder.html($target.text());
-                    // let productCata = $target.data('type');
-                    // $placeHolder.data('type', productCata);
-                    $target.addClass('necessary');
-                    $target.addClass('activeTag');
-                    $target.siblings().removeClass('activeTag');
-                    $(this).find('li:not(.limitPlaceHolder)').hide();
-                    // $('.tagCata li:not(.limitPlaceHolder)').hide();
-                }
-
-            }).on('click', '.uploadUserImgBtn', function () {
-                if (inputLock) {
-                    tips('文件正在上传中，请稍后', 'main', 1200, 'bottom', '')
-                    return;
-                }
-                $('#uploadUser').click();
-
-            }).on("change", "#uploadUser", uploadImg);
-
-
-
-            if (state == "edit" && userObj) {
-                let imgBox = $('#uploadUserImg').find('.imgBox');
-                layOpt.title = "编辑账号";
-                initAccountLimit(userObj.role_id);
-                if (userObj.url) {
-                    imgBox.addClass('imgShow');
-                    // console.log(imgBox);
-                    setData(imgBox, userObj.url);
-                } else {
-                    imgBox.removeClass('imgShow').addClass('imgHide');
-                }
-
-            } else {
-                initAccountLimit();
-            }
-            //用户权限初始化
-
+    function checkFormData() {
+      var uploadFormFlag = true;
+      var neccesaray = $("#userPop .necessary").not("input[name=password]");
+      neccesaray.each(function(neccesarayDom) {
+        if (this.tagName == "INPUT") {
+          if (!$(this).val()) uploadFormFlag = false;
+        } else {
+          if (!$(this).html()) uploadFormFlag = false;
         }
+      });
+      return uploadFormFlag;
+    }
 
-        function setData(ele, url) {
-            ele.find('img')[0].src = $IF.apiServer + url;
-            let $deleteFileBtn = ele.find(".deleteFile");
-            $deleteFileBtn.click(function () {
-                ele.removeClass('imgShow').addClass('imgHide');
-                ele.find('.colorRed').remove();
-
-            });
+    function layerPop(opt) {
+      let defaultOpt = {
+        btn: ["确定"],
+        btnAlign: "c",
+        area: ["280px", "190px"],
+        title: "提示",
+        yes: function(index, $layero) {
+          var flag = true;
+          if (opt.callBack(index, $layero) === false) {
+            flag = opt.callBack(index, $layero);
+          }
+          if (flag) layer.closeAll();
+        },
+        success: function(layero, index) {
+          $(layero).watermark(
+            JSON.parse(localStorage.getItem("watermarkinfo"))
+          );
+          opt.success && opt.success($layero, index);
         }
-
-        function addAccountfn() {
-
-            //验证表单输入是否完全
-            if (!checkFormData()) {
-                if ($("#userPop").find('.formTip').length <= 0) {
-                    let $span = `<span class="colorRed formTip">请输入表格信息必选项</span>`
-                    $('#userPop').append($span);
-                }
-                // $IF.tips('请输入表格信息必选项', 'main', 1200, 'bottom', '');   
-                return false;
-            } else {
-                let $formTip = $("#userPop").find('.formTip');
-                if ($("#userPop").find('.formTip').length > 0) {
-                    $formTip.remove();
-                }
-            }
-            let forms = $('#userPop form');
-
-            let roleId = $('#userPop').find('.limit .activeTag').data('id');
-            let pass = $('#userPop').find('input[type="password"]').val();
-            let formData = new FormData(forms[0]);
-            let md5Pass = $.md5(pass);
-            formData.append('password', md5Pass);
-            formData.append('roleId', roleId);
-            if ($('.imgBox').hasClass('imgHide')) fileObj.fileUrl = '';
-            if (!fileObj.fileUrl) fileObj.fileUrl = '';
-            formData.append('fileUrl', fileObj.fileUrl);
-            let formObj = {};
-            for (var pair of formData.entries()) {
-                formObj[pair[0]] = pair[1];
-            }
-            if (state == "edit") {
-                let userid = $('#userPop').data('userid');
-                $.ajax({
-                    type: "post",
-                    url: $IF.apiServer + '/user/edit/' + userid,
-                    processData: false,
-                    contentType: "application/json",
-                    data: JSON.stringify(formObj),
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                    },
-                    success: function (res) {
-                        if (res && res.data && res.errCode == 0) {
-                            layerPop({
-                                content: '编辑成功',
-                                callBack: function () {
-                                    //初始化用户信息接口
-                                    $('.usersInfo').html('');
-                                    initUserInfo();
-                                }
-                            })
-                        } else {
-                            $IF.errCodefn(res);
-                        }
-
-                    },
-                    error: function (err) {
-                        $IF.errCodefn(err);
-                    }
-                })
-            } else {
-                $.ajax({
-                    type: "post",
-                    url: $IF.apiServer + '/user/add',
-                    processData: false,
-                    contentType: "application/json",
-                    data: JSON.stringify(formObj),
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader("Authorization", localStorage.getItem('token'));
-                    },
-                    success: function (res) {
-                        if (res && res.data && res.errCode == 0) {
-                            console.log(res.data);
-                            layerPop({
-                                content: '添加成功',
-                                callBack: function () {
-                                    //初始化用户信息接口
-                                    $('.usersInfo').html('');
-                                    initUserInfo();
-                                }
-                            })
-                        } else {
-                            $IF.errCodefn(res);
-                        }
-
-                    },
-                    error: function (err) {
-                        $IF.errCodefn(err);
-                    }
-                })
-            }
-
-        }
-
-        function initAccountLimit(roleId) {
-            $IF.roleArr.forEach(function (item, key) {
-                let $limitPlaceHolder = null;
-
-                if (key == 0) {
-                    if (roleId && roleId) {
-                        $limitPlaceHolder =
-                            `<li class="limitPlaceHolder" data-id='${roleId}'>${$IF.roleObj && $IF.roleObj[roleId].role_name}</li>`
-                    } else {
-                        $limitPlaceHolder = `<li class="limitPlaceHolder" data-id=''>请选择</li>`
-                    }
-                }
-                console.log("xxq-------", $IF.userInfo.role_id);
-                $('#userPop').find('.limit').append($limitPlaceHolder);
-                if (item.id < $IF.userInfo.role_id) return;
-                let $li =
-                    `<li class='${item.id == roleId ? "activeTag" : ""}' data-id=${item.id}>${item.role_name}</li>`
-
-                $('#userPop').find('.limit').append($li);
-            })
-        }
-
-        function checkFormData() {
-            var uploadFormFlag = true;
-            var neccesaray = $('#userPop .necessary').not("input[name=password]");
-            neccesaray.each(function (neccesarayDom) {
-                if (this.tagName == 'INPUT') {
-                    if (!$(this).val()) uploadFormFlag = false;
-                } else {
-                    if (!$(this).html()) uploadFormFlag = false;
-                }
-
-
-            })
-            return uploadFormFlag;
-        }
-
-        function layerPop(opt) {
-            let defaultOpt = {
-                btn: ['确定'],
-                btnAlign: 'c',
-                area: ['280px', '190px'],
-                title: "提示",
-                yes: function () {
-                    var flag = true;
-                    if (opt.callBack() === false) {
-                        flag = opt.callBack();
-                    }
-                    if (flag) layer.closeAll();
-
-                },
-                success: function (layero, index) {
-                    $(layero).watermark(JSON.parse(localStorage.getItem(
-                        'watermarkinfo')));
-                },
-            }
-            let newOpt = Object.assign({}, defaultOpt, opt);
-            layer.open(newOpt);
-        }
-
-    })
+      };
+      let newOpt = Object.assign({}, defaultOpt, opt);
+      layer.open(newOpt);
+    }
+  });
 </script>

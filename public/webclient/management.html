@@ -381,7 +381,7 @@
                 var userInfo = $IF.userInfo;
                 var content =
                     `
-        <div id="userPop" class="formWrap">
+        <div id="userPop" class="formWrap manager-form">
             <form>
                       <div class="formItem">
                     <label for="addUser">姓名:</label>
@@ -408,6 +408,10 @@
                         placeholder="请输入新密码">
                     <span class="star">*</span>
                 </div>
+                <div class="formItem error">
+                    <label for="newPass" style="opacity:0">新密码:</label>
+                    <span></span>        
+                </div>
            
             </form>
         </div>`;
@@ -420,8 +424,11 @@
                     success: function (layero, index) {
                         $(layero).watermark(JSON.parse(localStorage.getItem(
                             'watermarkinfo')));
+
+                          //注册密码验证
+                        window.validPassword.register($(layero).find("#newPass"));  
                     },
-                    yes: function () {
+                    yes: function (index,$layero) {
                         if (!checkFormData()) {
                             if ($("#userPop").find('.formTip').length <= 0) {
                                 let $span =
@@ -435,6 +442,10 @@
                             if ($("#userPop").find('.formTip').length > 0) {
                                 $formTip.remove();
                             }
+                        }
+                        //验证密码
+                        if(!window.validPassword.valid($layero.find('#newPass'))){
+                            return;
                         }
                         // layer.closeAll();
                         // localStorage.removeItem('token');
